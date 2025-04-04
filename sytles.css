@@ -1,0 +1,185 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fff;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Cabeçalho */
+.site-header {
+  background: #1d1d1d;
+  color: #fff;
+  padding: 20px 0;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo h1 {
+  font-size: 1.8rem;
+}
+.main-nav ul {
+  list-style: none;
+  display: flex;
+}
+.main-nav ul li {
+  margin-left: 20px;
+}
+.main-nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.main-nav ul li a:hover {
+  color: #f39c12;
+}
+
+/* Seção Hero */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1200x600') no-repeat center center/cover;
+  color: #fff;
+  padding: 100px 0;
+  text-align: center;
+}
+.hero-section h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-primary {
+  background: #f39c12;
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #e67e22;
+}
+.btn-secondary {
+  background: #3498db;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background: #2980b9;
+}
+
+/* Seções Gerais */
+section {
+  padding: 80px 0;
+  text-align: center;
+}
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Recursos */
+.features-section .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+.feature-item {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+.feature-item img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+}
+.feature-item h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+/* Download e Documentação */
+.download-section,
+.documentation-section {
+  background: #f4f4f4;
+}
+.download-section p,
+.documentation-section p {
+  margin-bottom: 20px;
+}
+
+/* Contato */
+.contact-section form {
+  max-width: 500px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+.contact-section input,
+.contact-section textarea {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.contact-section button {
+  padding: 12px;
+  background: #f39c12;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.contact-section button:hover {
+  background: #e67e22;
+}
+
+/* Rodapé */
+.site-footer {
+  background: #1d1d1d;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+  }
+  .main-nav ul {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .main-nav ul li {
+    margin: 10px 0;
+  }
+}
