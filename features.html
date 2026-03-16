@@ -3,37 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Recursos</title>
+  <title>XMCLib - Recursos e Changelog v2.4.0</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
-      <nav class="main-nav"><ul>
-        <li><a href="index.html">Home</a></li><li><a class="active" href="features.html">Recursos</a></li><li><a href="download.html">Download</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">Suporte</a></li><li><a href="contact.html">Contato</a></li>
-      </ul></nav>
-      <div class="actions"><button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button></div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner">
+    <a class="logo" href="index.html">XMCLib UI</a>
+    <nav class="main-nav"><ul>
+      <li><a href="index.html">Home</a></li><li><a class="active" href="features.html">Recursos</a></li><li><a href="download.html">Instalação</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">FAQ</a></li><li><a href="contact.html">Contato</a></li>
+    </ul></nav>
+    <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
+  </div></header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="section-title">Recursos avançados para workflows profissionais</h1>
-      <p class="section-note">Uma plataforma completa para analisar scripts, automatizar validações e monitorar estabilidade.</p>
-      <div class="grid-3">
-        <article class="card"><h3>Sandbox isolada</h3><p>Crie ambientes de execução separados para reduzir riscos e testar de forma segura.</p></article>
-        <article class="card"><h3>Scanner de dependências</h3><p>Identifique bibliotecas suspeitas, versões antigas e incompatibilidades em segundos.</p></article>
-        <article class="card"><h3>Logs com filtros</h3><p>Visualize erros por severidade, período e origem para depurar mais rápido.</p></article>
-        <article class="card"><h3>Perfis de execução</h3><p>Salve presets de performance para jogos e cenários diferentes.</p></article>
-        <article class="card"><h3>Assistente de snippets</h3><p>Biblioteca de scripts reutilizáveis para acelerar testes rotineiros.</p></article>
-        <article class="card"><h3>Telemetria de sessão</h3><p>Monitore uso de memória, CPU e latência em tempo real durante cada execução.</p></article>
-      </div>
+  <main class="section"><div class="container">
+    <h1 class="section-title">Changelog técnico da UILibrary.luau</h1>
+    <p class="section-note">Resumo estruturado da versão <strong>2.4.0</strong> com foco em UX, estabilidade e interoperabilidade.</p>
+    <div class="grid-3">
+      <article class="card"><h3>Toggle Ball flutuante</h3><p>Botão arrastável que abre/fecha janelas. Suporta ícone custom via <code>CreateWindow { ToggleIcon = ... }</code> e <code>lib:SetToggleIcon(id)</code>.</p></article>
+      <article class="card"><h3>Compact layout</h3><p>Sidebar estreita, topbar reduzida e janela padrão menor para melhor experiência em mobile e telas menores.</p></article>
+      <article class="card"><h3>Touch-first inputs</h3><p>Slider, dropdown e módulo drag aceitam touch em todos os fluxos de click/move/release.</p></article>
+      <article class="card"><h3>Notification remade</h3><p>Auto-size de texto e campos alternativos de mensagem para tornar integração mais tolerante.</p></article>
+      <article class="card"><h3>ZIndexManager por tier</h3><p>Cada janela recebe base de z-index própria, evitando conflitos entre múltiplas UIs no mesmo jogo.</p></article>
+      <article class="card"><h3>Connection lifecycle</h3><p><code>Utility.Connect</code> e <code>Utility.DisconnectAll</code> centralizam as conexões para liberar recursos corretamente.</p></article>
     </div>
-  </main>
+  </div></main>
 
-  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XExecutor.</p><p>Inovação contínua com releases semanais.</p></div></footer>
+  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XMCLib UI Library.</p><p>Última base: UILibrary.luau (MainFrame/Open).</p></div></footer>
   <script src="app.js"></script>
 </body>
 </html>

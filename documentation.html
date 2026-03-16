@@ -3,34 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Documentação</title>
+  <title>XMCLib - Documentação Rápida</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
-      <nav class="main-nav"><ul>
-        <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Download</a></li><li><a class="active" href="documentation.html">Documentação</a></li><li><a href="support.html">Suporte</a></li><li><a href="contact.html">Contato</a></li>
-      </ul></nav>
-      <div class="actions"><button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button></div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner">
+    <a class="logo" href="index.html">XMCLib UI</a>
+    <nav class="main-nav"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Instalação</a></li><li><a class="active" href="documentation.html">Documentação</a></li><li><a href="support.html">FAQ</a></li><li><a href="contact.html">Contato</a></li>
+    </ul></nav>
+    <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
+  </div></header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="section-title">Documentação estruturada</h1>
-      <p class="section-note">Fluxo de onboarding simplificado com trilhas de aprendizado.</p>
-      <div class="timeline">
-        <article class="card step"><div class="step-number">1</div><div><h3>Instalação e setup</h3><p>Guia inicial com requisitos, download e configuração em menos de 5 minutos.</p></div></article>
-        <article class="card step"><div class="step-number">2</div><div><h3>Primeiro script</h3><p>Exemplos comentados e checklist de segurança para execução controlada.</p></div></article>
-        <article class="card step"><div class="step-number">3</div><div><h3>Automação avançada</h3><p>Como criar rotinas, integrar logs e gerar relatórios comparativos.</p></div></article>
-      </div>
-    </div>
-  </main>
+  <main class="section"><div class="container">
+    <h1 class="section-title">Guia de integração</h1>
+    <p class="section-note">Passos rápidos para usar a biblioteca em executor ou LocalScript.</p>
 
-  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XExecutor.</p><p>Conteúdo revisado mensalmente.</p></div></footer>
+    <div class="timeline">
+      <article class="card step"><div class="step-number">1</div><div><h3>Carregue o script</h3><p>Importe o arquivo <code>UILibrary.luau</code> no seu projeto ou loader.</p></div></article>
+      <article class="card step"><div class="step-number">2</div><div><h3>Crie sua janela</h3><p>Defina título, tamanho, ícone do Toggle Ball e tabs principais para organização.</p></div></article>
+      <article class="card step"><div class="step-number">3</div><div><h3>Registre elementos</h3><p>Adicione toggles, sliders, dropdowns e callbacks via <code>Utility.SafeCall</code>.</p></div></article>
+    </div>
+
+    <section class="section" style="padding-bottom:0;">
+      <h2 class="section-title">Exemplo mínimo</h2>
+      <div class="code-block"><pre>local lib = loadstring(game:HttpGet(".../UILibrary.luau"))()
+local win = lib:CreateWindow({
+  Name = "Demo",
+  ToggleIcon = "rbxassetid://525701437"
+})
+
+win:Notify({
+  Title = "XMCLib",
+  Message = "UI carregada com sucesso",
+  Corner = "TopRight"
+})</pre></div>
+    </section>
+  </div></main>
+
+  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XMCLib UI Library.</p><p><a href="documentationlib.html" style="color:inherit;">Abrir página de referência expandida</a></p></div></footer>
   <script src="app.js"></script>
 </body>
 </html>
