@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-[span_0](start_span)<title>XMCLib v2.2.0 — Documentation[span_0](end_span)</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5327207301471176"
+     crossorigin="anonymous"></script>
+<title>XMCLib v2.2.0 — Documentation</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -574,6 +576,41 @@
   .fake-slider-wrap { flex: 1; min-width: 120px; }
   .fake-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
 
+
+  /* ── New design gallery ───────────────────────────── */
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .design-card {
+    border: 1px solid var(--border0);
+    border-radius: 12px;
+    background: linear-gradient(160deg, rgba(18,18,26,0.96), rgba(10,10,15,0.96));
+    padding: 14px;
+  }
+
+  .design-pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+
+  .design-card h4 {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .design-card p {
+    font-size: 12.5px;
+    margin-bottom: 0;
+    color: var(--text2);
+  }
+
   /* ── scrollbar ─────────────────────────────────────── */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -597,6 +634,7 @@
     #sidebar { display: none; }
     #main { margin-left: 0; padding: 32px 20px; }
     .theme-grid { grid-template-columns: repeat(2,1fr); }
+    .design-grid { grid-template-columns: 1fr; }
     #hero h1 { font-size: 34px; }
   }
 </style>
@@ -605,7 +643,7 @@
 
 <nav id="sidebar">
   <div class="sidebar-logo">
-    [span_1](start_span)<div class="chip">v2.2.0[span_1](end_span)</div>
+    <div class="chip">v2.2.0</div>
     <h1>XMC<span>Lib</span></h1>
     <p>Roblox UI Framework</p>
   </div>
@@ -621,6 +659,7 @@
     <div class="nav-group-title">Core API</div>
     <a class="nav-link" href="#xmclib"><span class="dot"></span>XMCLib</a>
     <a class="nav-link" href="#themes"><span class="dot"></span>Themes</a>
+    <a class="nav-link" href="#designs"><span class="dot"></span>Designs</a>
     <a class="nav-link" href="#config"><span class="dot"></span>Config</a>
     <a class="nav-link" href="#notify"><span class="dot"></span>Notifications</a>
   </div>
@@ -653,7 +692,7 @@
 
   <div id="hero">
     <div class="hero-glow"></div>
-    [span_2](start_span)<div class="version-badge"><span class="pulse"></span> v2.2.0[span_2](end_span) [span_3](start_span)— Memory-Safe · Touch-Ready · Toggle Ball[span_3](end_span)</div>
+    <div class="version-badge"><span class="pulse"></span> v2.2.0 — Memory-Safe · Touch-Ready · Toggle Ball</div>
     <h1>XMC<span>Lib</span><br/>Documentation</h1>
     <p>A production-grade Roblox UI library. Memory-safe, mobile-ready, multi-window safe with dynamic ZIndex management.</p>
     <div class="badges">
@@ -672,8 +711,8 @@
 
     <h3>Key Features</h3>
     <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin:10px 0;">
-      [span_4](start_span)<li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Toggle Ball — draggable floating button to toggle UI visibility[span_4](end_span). [span_5](start_span)Default icon is rbxassetid://525701437[span_5](end_span).</li>
-      [span_6](start_span)<li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Compact layout — sidebar 120px, topbar 36px, default size 520x380[span_6](end_span). [span_7](start_span)Much better on small/mobile screens[span_7](end_span).</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Toggle Ball — draggable floating button to toggle UI visibility. Default icon is rbxassetid://525701437.</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Compact layout — sidebar 120px, topbar 36px, default size 520x380. Much better on small/mobile screens.</li>
       <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Memory-safe: all global connections are tracked and disconnected on destroy</li>
       <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Touch / mobile support on Slider, Dropdown, Drag</li>
       <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Dynamic ZIndex — no conflicts between multiple windows</li>
@@ -690,7 +729,7 @@
 
     <h3>Executor (loadstring)</h3>
 <pre><span class="cm">-- Load and initialise XMCLib</span>
-<span class="kw">local</span> <span class="id">XMCLib</span> <span class="kw">=</span> <span class="fn">loadstring</span>(<span class="fn">game</span>:<span class="fn">HttpGet</span>(<span class="str">"https://your-host/XMCLib.lua"</span>))()
+<span class="kw">local</span> <span class="id">XMCLib</span> <span class="kw">=</span> <span class="fn">loadstring</span>(<span class="fn">game</span>:<span class="fn">HttpGet</span>(<span class="str">"https://pastebin.com/raw/0mS7SURg"</span>))()
 <span class="lang-tag">lua</span></pre>
 
     <h3>ModuleScript (require)</h3>
@@ -704,13 +743,13 @@
 
 <pre><span class="cm">-- Correct entry point</span>
 <span class="kw">local</span> <span class="id">lib</span> <span class="kw">=</span> <span class="id">XMCLib</span>.<span class="fn">new</span>()
-[span_8](start_span)<span class="fn">print</span>(<span class="id">lib</span>._version) <span class="cm">-- "2.2.0"[span_8](end_span)</span>
+<span class="fn">print</span>(<span class="id">lib</span>._version) <span class="cm">-- "2.2.0"</span>
 <span class="kw">return</span> <span class="id">lib</span>
 <span class="lang-tag">lua</span></pre>
 
     <h3>Quick Start</h3>
 <pre><span class="kw">local</span> <span class="id">lib</span>  <span class="kw">=</span> <span class="fn">require</span>(<span class="id">XMCLib</span>)
-[span_9](start_span)<span class="kw">local</span> <span class="id">win</span>  <span class="kw">=</span> <span class="id">lib</span>:<span class="fn">CreateWindow</span>({ <span class="id">Title</span> <span class="kw">=</span> <span class="str">"My Script"</span>, <span class="id">Width</span> <span class="kw">=</span> <span class="num">520</span>, <span class="id">Height</span> <span class="kw">=</span> <span class="num">380</span> }) <span class="cm">--[span_9](end_span)</span>
+<span class="kw">local</span> <span class="id">win</span>  <span class="kw">=</span> <span class="id">lib</span>:<span class="fn">CreateWindow</span>({ <span class="id">Title</span> <span class="kw">=</span> <span class="str">"My Script"</span>, <span class="id">Width</span> <span class="kw">=</span> <span class="num">520</span>, <span class="id">Height</span> <span class="kw">=</span> <span class="num">380</span> }) <span class="cm">--</span>
 <span class="kw">local</span> <span class="id">tab</span>  <span class="kw">=</span> <span class="id">win</span>:<span class="fn">CreateTab</span>(<span class="str">"Main"</span>, <span class="str">"⚙"</span>)
 <span class="kw">local</span> <span class="id">sec</span>  <span class="kw">=</span> <span class="id">tab</span>:<span class="fn">CreateSection</span>(<span class="str">"Settings"</span>)
 
@@ -731,11 +770,11 @@
     <div class="section-tag">CHANGELOG</div>
     <h2>Changelog</h2>
 
-    [span_10](start_span)<h3>v2.2.0[span_10](end_span)</h3>
+    <h3>v2.2.0</h3>
     <ul class="changelog-list">
-      [span_11](start_span)<li><span class="cl-tag cl-new">NEW</span> Toggle Ball — a draggable floating button (touch + mouse) that shows/hides all windows[span_11](end_span). [span_12](start_span)Default icon: rbxassetid://525701437[span_12](end_span). [span_13](start_span)Set via CreateWindow { ToggleIcon = "rbxassetid://..." } or at runtime with lib:SetToggleIcon(id)[span_13](end_span).</li>
-      [span_14](start_span)<li><span class="cl-tag cl-new">NEW</span> Compact layout — sidebar narrowed to 120 px, topbar to 36 px, default window size 520×380[span_14](end_span). [span_15](start_span)Much better on small/mobile screens[span_15](end_span).</li>
-      [span_16](start_span)<li><span class="cl-tag cl-new">NEW</span> Mobile-friendly Toggle Ball — fully draggable on touch devices; tap to toggle, drag to reposition[span_16](end_span).</li>
+      <li><span class="cl-tag cl-new">NEW</span> Toggle Ball — a draggable floating button (touch + mouse) that shows/hides all windows. Default icon: rbxassetid://525701437. Set via CreateWindow { ToggleIcon = "rbxassetid://..." } or at runtime with lib:SetToggleIcon(id).</li>
+      <li><span class="cl-tag cl-new">NEW</span> Compact layout — sidebar narrowed to 120 px, topbar to 36 px, default window size 520×380. Much better on small/mobile screens.</li>
+      <li><span class="cl-tag cl-new">NEW</span> Mobile-friendly Toggle Ball — fully draggable on touch devices; tap to toggle, drag to reposition.</li>
     </ul>
 
     <br>
@@ -774,10 +813,10 @@
         <table class="params-table">
           <tr><th>Field</th><th>Type</th><th>Description</th></tr>
           <tr><td>Title</td><td>string</td><td>Window title shown in the sidebar logo area.</td></tr>
-          <tr><td>Width <span class="opt">opt</span></td><td>number</td><td>Window width in pixels. [span_17](start_span)Default: <code>520</code>[span_17](end_span).</td></tr>
-          <tr><td>Height <span class="opt">opt</span></td><td>number</td><td>Window height in pixels. [span_18](start_span)Default: <code>380</code>[span_18](end_span).</td></tr>
+          <tr><td>Width <span class="opt">opt</span></td><td>number</td><td>Window width in pixels. Default: <code>520</code>.</td></tr>
+          <tr><td>Height <span class="opt">opt</span></td><td>number</td><td>Window height in pixels. Default: <code>380</code>.</td></tr>
           <tr><td>Position <span class="opt">opt</span></td><td>UDim2</td><td>Initial position. Default: centered.</td></tr>
-          [span_19](start_span)<tr><td>ToggleIcon <span class="opt">opt</span></td><td>string</td><td>Overrides the Toggle Ball icon for this window[span_19](end_span). [span_20](start_span)Default: <code>rbxassetid://525701437</code>[span_20](end_span).</td></tr>
+          <tr><td>ToggleIcon <span class="opt">opt</span></td><td>string</td><td>Overrides the Toggle Ball icon for this window. Default: <code>rbxassetid://525701437</code>.</td></tr>
         </table>
       </div>
     </div>
@@ -789,7 +828,7 @@
         <span class="ret">→ void</span>
       </div>
       <div class="api-card-body">
-        [span_21](start_span)<p>Update the toggle ball's icon at runtime[span_21](end_span).</p>
+        <p>Update the toggle ball's icon at runtime.</p>
       </div>
     </div>
 
@@ -800,7 +839,7 @@
         <span class="ret">→ void</span>
       </div>
       <div class="api-card-body">
-        [span_22](start_span)<p>Show or hide the toggle ball itself[span_22](end_span).</p>
+        <p>Show or hide the toggle ball itself.</p>
       </div>
     </div>
 
@@ -901,6 +940,30 @@
     <div class="info-box warn">
       <strong>⚠ NOTE</strong>
       Themes apply at creation time. Changing the theme after windows are created does <em>not</em> live-recolor existing elements — destroy and recreate windows to apply a new theme.
+    </div>
+  </div>
+
+  <div class="doc-section" id="designs">
+    <div class="section-tag">DESIGNS</div>
+    <h2>New Design Presets</h2>
+    <p>Use these preset directions as inspiration when building your next XMCLib interface. Each one keeps high contrast and touch-friendly spacing.</p>
+
+    <div class="design-grid">
+      <div class="design-card">
+        <span class="design-pill">PRESET 01</span>
+        <h4>Neon Console</h4>
+        <p>High-energy blue highlights, dense data widgets, and compact control spacing for power users.</p>
+      </div>
+      <div class="design-card">
+        <span class="design-pill">PRESET 02</span>
+        <h4>Emerald Minimal</h4>
+        <p>Calm green accents, balanced card rhythm, and larger click targets optimized for mobile players.</p>
+      </div>
+      <div class="design-card">
+        <span class="design-pill">PRESET 03</span>
+        <h4>Crimson Alert</h4>
+        <p>Red alert states, prominent warning surfaces, and clear hierarchy for moderation/admin panels.</p>
+      </div>
     </div>
   </div>
 
@@ -1292,7 +1355,7 @@
   </div>
 
   <footer>
-    [span_23](start_span)<span>XMCLib v2.2.0[span_23](end_span)</span>
+    <span>XMCLib v2.2.0</span>
     <span>Memory-Safe · Touch-Ready · Dynamic ZIndex</span>
   </footer>
 
