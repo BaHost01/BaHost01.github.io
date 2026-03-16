@@ -3,41 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Contato</title>
+  <title>XMCLib - Contato</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
-      <nav class="main-nav"><ul>
-        <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Download</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">Suporte</a></li><li><a class="active" href="contact.html">Contato</a></li>
-      </ul></nav>
-      <div class="actions"><button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button></div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner">
+    <a class="logo" href="index.html">XMCLib UI</a>
+    <nav class="main-nav"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Instalação</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">FAQ</a></li><li><a class="active" href="contact.html">Contato</a></li>
+    </ul></nav>
+    <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
+  </div></header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="section-title">Fale com a equipe</h1>
-      <p class="section-note">Envie dúvidas técnicas, sugestões de recursos ou solicitações comerciais.</p>
-      <form class="contact-form" action="#" method="post">
-        <input type="text" name="nome" placeholder="Seu nome" required>
-        <input type="email" name="email" placeholder="Seu e-mail" required>
-        <select name="categoria" required>
-          <option value="" selected disabled>Selecione a categoria</option>
-          <option>Suporte técnico</option>
-          <option>Parcerias</option>
-          <option>Feedback de produto</option>
-        </select>
-        <textarea name="mensagem" placeholder="Descreva sua solicitação" required></textarea>
-        <button type="submit" class="btn btn-primary">Enviar mensagem</button>
-      </form>
-    </div>
-  </main>
+  <main class="section"><div class="container">
+    <h1 class="section-title">Contato da documentação comunitária</h1>
+    <p class="section-note">Use este formulário para sugerir melhorias na página, correções de textos e novos exemplos.</p>
+    <form class="contact-form" action="#" method="post">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <select name="categoria" required>
+        <option value="" selected disabled>Selecione a categoria</option>
+        <option>Correção de documentação</option>
+        <option>Nova feature para tutorial</option>
+        <option>Relato de erro de UI</option>
+      </select>
+      <textarea name="mensagem" placeholder="Descreva sua sugestão" required></textarea>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div></main>
 
-  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XExecutor.</p><p>Atendimento em português e inglês.</p></div></footer>
+  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XMCLib UI Library.</p><p>Projeto de documentação não-oficial.</p></div></footer>
   <script src="app.js"></script>
 </body>
 </html>

@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Plataforma de Testes</title>
+  <title>XMCLib UI Library - Compact Refresh v2.4.0</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
+      <a class="logo" href="index.html">XMCLib UI</a>
       <nav class="main-nav" aria-label="Navegação principal">
         <ul>
           <li><a class="active" href="index.html">Home</a></li>
           <li><a href="features.html">Recursos</a></li>
-          <li><a href="download.html">Download</a></li>
+          <li><a href="download.html">Instalação</a></li>
           <li><a href="documentation.html">Documentação</a></li>
-          <li><a href="support.html">Suporte</a></li>
+          <li><a href="support.html">FAQ</a></li>
           <li><a href="contact.html">Contato</a></li>
         </ul>
       </nav>
-      <div class="actions">
-        <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
-      </div>
+      <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
     </div>
   </header>
 
@@ -31,44 +29,52 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <span class="badge">Nova versão 2.5 • UI totalmente refeita</span>
-          <h1>Teste scripts com mais performance, controle e segurança.</h1>
-          <p class="subtitle">O XExecutor foi redesenhado com painel moderno, proteção multicamada e ferramentas para monitorar execução em tempo real.</p>
+          <span class="badge">v2.4.0 • Compact Refresh • Dynamic ZIndex</span>
+          <h1>UILibrary Roblox refeita: compacta, responsiva e pronta para touch.</h1>
+          <p class="subtitle">Este site agora documenta a <strong>XMCLib UI Library</strong> do arquivo <code>UILibrary.luau</code>, com foco nas novidades reais da versão 2.4.0: Toggle Ball, notificações avançadas, layout compacto e correções de memory leak.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="download.html" data-download-trigger>Começar agora</a>
-            <a class="btn btn-secondary" href="features.html">Ver recursos</a>
+            <a class="btn btn-primary" href="documentation.html">Ler documentação</a>
+            <a class="btn btn-secondary" href="features.html">Ver changelog técnico</a>
           </div>
         </div>
         <aside class="stat-card">
-          <h2 style="font-size:1.2rem; margin-bottom: 6px;">Painel de atividade</h2>
-          <p class="section-note">Métricas ao vivo para acompanhar seu ambiente.</p>
+          <h2 style="font-size:1.2rem; margin-bottom: 8px;">Highlights desta release</h2>
+          <p class="section-note">Dados extraídos da seção de changelog do script.</p>
           <div class="kpis">
-            <div><strong data-download-count>1.842</strong><span>Downloads</span></div>
-            <div><strong>99.7%</strong><span>Estabilidade</span></div>
-            <div><strong>12ms</strong><span>Latência média</span></div>
-            <div><strong>24/7</strong><span>Monitoramento</span></div>
+            <div><strong>Toggle Ball</strong><span>draggable + touch/mouse</span></div>
+            <div><strong>Compact UI</strong><span>sidebar 120px, topbar 36px</span></div>
+            <div><strong>ZIndex dinâmico</strong><span>tiers por janela</span></div>
+            <div><strong>Leak fix</strong><span>DisconnectAll em destroy</span></div>
           </div>
         </aside>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <h2 class="section-title">O que mudou no novo design</h2>
-        <p class="section-note">Interface premium com foco em velocidade, clareza e acessibilidade.</p>
-        <div class="grid-3">
-          <article class="card"><h3>Navegação inteligente</h3><p>Layout mais limpo e rápido para acessar documentação, suporte e downloads sem fricção.</p></article>
-          <article class="card"><h3>Modo claro/escuro</h3><p>Escolha seu tema e mantenha preferência salva automaticamente em cada visita.</p></article>
-          <article class="card"><h3>Componentes modernos</h3><p>Cards, indicadores e sessões reorganizadas para melhorar legibilidade em desktop e mobile.</p></article>
-        </div>
+      <div class="container grid-3">
+        <article class="card">
+          <p class="mini-title">Novo</p>
+          <h3>Sistema de notificação avançado</h3>
+          <p>Agora aceita aliases de texto (<code>Label</code>, <code>Labels</code>, <code>Text</code>, <code>Message</code>), corners customizáveis e ações com callback.</p>
+        </article>
+        <article class="card">
+          <p class="mini-title">Upgrade</p>
+          <h3>Compatibilidade mobile real</h3>
+          <p>Slider, Dropdown e Drag reconhecem <code>Enum.UserInputType.Touch</code> além de mouse, melhorando usabilidade em telas pequenas.</p>
+        </article>
+        <article class="card">
+          <p class="mini-title">Fix</p>
+          <h3>Conexões globais limpas</h3>
+          <p>As conexões são armazenadas em <code>element._connections</code> e removidas com <code>Disconnect()</code> para reduzir leaks.</p>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-row">
-      <p>&copy; 2026 XExecutor. Todos os direitos reservados.</p>
-      <p>Build focada em testes éticos e ambientes autorizados.</p>
+      <p>&copy; 2026 XMCLib UI Library.</p>
+      <p>Documentação comunitária para o script de BaHost01.</p>
     </div>
   </footer>
 

@@ -3,48 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Download</title>
+  <title>XMCLib - Instalação</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
-      <nav class="main-nav"><ul>
-        <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a class="active" href="download.html">Download</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">Suporte</a></li><li><a href="contact.html">Contato</a></li>
-      </ul></nav>
-      <div class="actions"><button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button></div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner">
+    <a class="logo" href="index.html">XMCLib UI</a>
+    <nav class="main-nav"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a class="active" href="download.html">Instalação</a></li><li><a href="documentation.html">Documentação</a></li><li><a href="support.html">FAQ</a></li><li><a href="contact.html">Contato</a></li>
+    </ul></nav>
+    <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
+  </div></header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="section-title">Baixar XExecutor</h1>
-      <p class="section-note">Versão 2.5.1 • Atualizada em 12/02/2026 • Assinatura digital verificada.</p>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Installer estável</h3>
-          <p>Recomendado para a maioria dos usuários.</p>
-          <ul class="list"><li>Windows 10+</li><li>Atualização automática</li><li>Suporte prioritário</li></ul>
-          <p style="margin-top:12px;"><a href="#" class="btn btn-primary" data-download-trigger>Download estável</a></p>
-        </article>
-        <article class="card">
-          <h3>Canal beta</h3>
-          <p>Novos recursos em primeira mão para testers.</p>
-          <ul class="list"><li>Features experimentais</li><li>Feedback rápido</li><li>Relatórios detalhados</li></ul>
-          <p style="margin-top:12px;"><a href="#" class="btn btn-secondary">Entrar no beta</a></p>
-        </article>
-        <article class="card">
-          <h3>Downloads desta sessão</h3>
-          <p>Contador local para visualizar suas interações.</p>
-          <p style="font-size:2rem; font-weight:700; color:var(--accent); margin-top:8px;" data-download-count>1.842</p>
-        </article>
-      </div>
+  <main class="section"><div class="container">
+    <h1 class="section-title">Como carregar a XMCLib</h1>
+    <p class="section-note">Fonte oficial sugerida pelo repositório OpenSource-stuff-.</p>
+    <div class="grid-2">
+      <article class="card">
+        <h3>Loadstring direto</h3>
+        <div class="code-block" style="margin-top:10px;"><pre>local lib = loadstring(game:HttpGet(
+"https://raw.githubusercontent.com/BaHost01/OpenSource-stuff-/refs/heads/main/MainFrame/Open/UILibrary.luau"
+))()</pre></div>
+      </article>
+      <article class="card">
+        <h3>Notas importantes</h3>
+        <p>Use somente em ambiente permitido. O script cria pasta <code>XMCLib/</code> e arquivo de configuração local quando necessário.</p>
+        <p style="margin-top:10px; color: var(--muted);">Ações de attach/update aparecem no bloco <code>attacher</code> e <code>injectconnector</code> do código-fonte.</p>
+      </article>
     </div>
-  </main>
+  </div></main>
 
-  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XExecutor.</p><p>Disponível para ambientes autorizados.</p></div></footer>
+  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XMCLib UI Library.</p><p>Link legado: <a href="dowload.html" style="color:inherit;">dowload.html</a></p></div></footer>
   <script src="app.js"></script>
 </body>
 </html>

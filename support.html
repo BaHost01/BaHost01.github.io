@@ -3,34 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XExecutor - Suporte</title>
+  <title>XMCLib - FAQ</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XExecutor</a>
-      <nav class="main-nav"><ul>
-        <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Download</a></li><li><a href="documentation.html">Documentação</a></li><li><a class="active" href="support.html">Suporte</a></li><li><a href="contact.html">Contato</a></li>
-      </ul></nav>
-      <div class="actions"><button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button></div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner">
+    <a class="logo" href="index.html">XMCLib UI</a>
+    <nav class="main-nav"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="features.html">Recursos</a></li><li><a href="download.html">Instalação</a></li><li><a href="documentation.html">Documentação</a></li><li><a class="active" href="support.html">FAQ</a></li><li><a href="contact.html">Contato</a></li>
+    </ul></nav>
+    <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
+  </div></header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="section-title">Central de suporte</h1>
-      <p class="section-note">Base de conhecimento + atendimento humano para acelerar resolução.</p>
-      <section class="accordion" aria-label="Perguntas frequentes">
-        <details><summary>Como atualizo para a versão mais recente?</summary><p>Acesse a página de download, execute o instalador e mantenha "Atualização automática" habilitada.</p></details>
-        <details><summary>Posso exportar logs de erro?</summary><p>Sim. Abra o painel "Logs", aplique filtros e clique em "Exportar relatório" em JSON ou CSV.</p></details>
-        <details><summary>Onde reportar falso positivo?</summary><p>Utilize o formulário de contato com arquivo de log anexado e identificador da build.</p></details>
-      </section>
-    </div>
-  </main>
+  <main class="section"><div class="container">
+    <h1 class="section-title">Perguntas frequentes</h1>
+    <p class="section-note">Perguntas comuns para quem está migrando para a base 2.4.0.</p>
+    <section class="accordion">
+      <details><summary>O Toggle Ball funciona em touch?</summary><p>Sim. O changelog especifica suporte completo a touch + mouse para arrastar e alternar janelas.</p></details>
+      <details><summary>Como evitar memory leak em elementos dinâmicos?</summary><p>Garanta que cada elemento guarde conexões em <code>_connections</code> e chame o destroy para executar <code>DisconnectAll</code>.</p></details>
+      <details><summary>Por que o ZIndex foi refeito?</summary><p>Para parar conflitos com outras bibliotecas UI. Cada janela recebe um tier base e elementos derivados usam offsets previsíveis.</p></details>
+    </section>
+  </div></main>
 
-  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XExecutor.</p><p>SLA premium: 2h úteis.</p></div></footer>
+  <footer class="site-footer"><div class="container footer-row"><p>&copy; 2026 XMCLib UI Library.</p><p>FAQ mantida com base no arquivo luau oficial.</p></div></footer>
   <script src="app.js"></script>
 </body>
 </html>
