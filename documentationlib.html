@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+[span_0](start_span)<title>XMCLib v2.2.0 — Documentation[span_0](end_span)</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0a0a0f;
+    --surface0:  #0e0e14;
+    --surface1:  #12121a;
+    --surface2:  #17172200;
+    --border0:   #1e1e2d;
+    --border1:   #28283a;
+    --accent:    #6991ff;
+    --accent2:   #4b69d2;
+    --accent-dim:#2d4190;
+    --text:      #e4e4f5;
+    --text2:     #8c8ca8;
+    --text3:     #4b4b64;
+    --success:   #48d280;
+    --warning:   #f5b93c;
+    --error:     #eb4b4b;
+    --info:      #6991ff;
+    --mono:      'Space Mono', monospace;
+    --sans:      'Syne', sans-serif;
+    --sidebar-w: 260px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise overlay ─────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.018;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── Sidebar ───────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--surface0);
+    border-right: 1px solid var(--border0);
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 24px;
+    border-bottom: 1px solid var(--border0);
+  }
+
+  .sidebar-logo .chip {
+    display: inline-block;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .sidebar-logo h1 span { color: var(--accent); }
+
+  .sidebar-logo p {
+    margin-top: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  .nav-group { padding: 18px 0 4px; }
+
+  .nav-group-title {
+    padding: 0 20px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .nav-link:hover { color: var(--text); background: rgba(105,145,255,0.04); }
+  .nav-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(105,145,255,0.06); }
+
+  .nav-link .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ── Main content ──────────────────────────────────── */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    max-width: 900px;
+    padding: 60px 56px;
+  }
+
+  /* ── Section blocks ────────────────────────────────── */
+  .doc-section {
+    margin-bottom: 72px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(105,145,255,0.08);
+    border: 1px solid rgba(105,145,255,0.18);
+    padding: 2px 9px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .doc-section h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .doc-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 36px 0 10px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .doc-section h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border0);
+  }
+
+  .doc-section p {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 12px;
+    max-width: 680px;
+  }
+
+  /* ── Hero ──────────────────────────────────────────── */
+  #hero {
+    padding: 0 0 72px;
+    border-bottom: 1px solid var(--border0);
+    margin-bottom: 72px;
+    position: relative;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(105,145,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(105,145,255,0.08);
+    border: 1px solid rgba(105,145,255,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+
+  .version-badge .pulse {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  #hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  #hero h1 span { color: var(--accent); }
+
+  #hero p {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 560px;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .badge-blue  { background: rgba(105,145,255,0.12); color: var(--accent);  border: 1px solid rgba(105,145,255,0.25); }
+  .badge-green { background: rgba(72,210,128,0.1);  color: var(--success); border: 1px solid rgba(72,210,128,0.2); }
+  .badge-warn  { background: rgba(245,185,60,0.1);  color: var(--warning); border: 1px solid rgba(245,185,60,0.2); }
+
+  /* ── Changelog ─────────────────────────────────────── */
+  .changelog-list { list-style: none; }
+
+  .changelog-list li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border0);
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  .changelog-list li:last-child { border-bottom: none; }
+
+  .cl-tag {
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .cl-fix  { background: rgba(72,210,128,0.1);  color: var(--success); }
+  .cl-new  { background: rgba(105,145,255,0.1); color: var(--accent); }
+  .cl-break{ background: rgba(235,75,75,0.1);   color: var(--error); }
+
+  /* ── Code blocks ───────────────────────────────────── */
+  pre {
+    background: var(--surface0);
+    border: 1px solid var(--border0);
+    border-radius: 10px;
+    padding: 20px 22px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.75;
+    margin: 14px 0;
+    position: relative;
+  }
+
+  pre .lang-tag {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+  }
+
+  code { font-family: var(--mono); font-size: 0.9em; }
+
+  .inline-code {
+    background: rgba(105,145,255,0.08);
+    border: 1px solid rgba(105,145,255,0.14);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* Syntax highlight */
+  .kw  { color: #a78bfa; }
+  .fn  { color: #6991ff; }
+  .str { color: #86efac; }
+  .cm  { color: #4b4b64; font-style: italic; }
+  .num { color: #f9a8d4; }
+  .id  { color: var(--text); }
+
+  /* ── API cards ─────────────────────────────────────── */
+  .api-card {
+    background: var(--surface0);
+    border: 1px solid var(--border0);
+    border-radius: 12px;
+    margin: 16px 0;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .api-card:hover { border-color: var(--border1); }
+
+  .api-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border0);
+    background: rgba(105,145,255,0.03);
+  }
+
+  .api-card-header .method {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .api-card-header .signature {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  .api-card-header .ret {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--success);
+    background: rgba(72,210,128,0.08);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .api-card-body { padding: 14px 20px; }
+
+  .api-card-body p {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text2);
+    max-width: 100%;
+  }
+
+  /* ── Params table ──────────────────────────────────── */
+  .params-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-top: 10px;
+  }
+
+  .params-table th {
+    text-align: left;
+    padding: 6px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border0);
+  }
+
+  .params-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top;
+    color: var(--text2);
+  }
+
+  .params-table td:first-child {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .params-table td:nth-child(2) {
+    color: var(--warning);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .params-table .opt {
+    font-size: 9px;
+    color: var(--text3);
+    background: var(--border0);
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    font-family: var(--sans);
+    font-weight: 700;
+    vertical-align: middle;
+  }
+
+  /* ── Info boxes ────────────────────────────────────── */
+  .info-box {
+    border-left: 3px solid;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  .info-box.note    { border-color: var(--info);    background: rgba(105,145,255,0.06); color: var(--text2); }
+  .info-box.warn    { border-color: var(--warning);  background: rgba(245,185,60,0.06);  color: var(--text2); }
+  .info-box.danger  { border-color: var(--error);    background: rgba(235,75,75,0.06);   color: var(--text2); }
+  .info-box.success { border-color: var(--success);  background: rgba(72,210,128,0.06);  color: var(--text2); }
+
+  .info-box strong { display: block; margin-bottom: 3px; }
+  .info-box.note    strong { color: var(--info); }
+  .info-box.warn    strong { color: var(--warning); }
+  .info-box.danger  strong { color: var(--error); }
+  .info-box.success strong { color: var(--success); }
+
+  /* ── Theme grid ────────────────────────────────────── */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .theme-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border0);
+    cursor: default;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+
+  .theme-card:hover { transform: translateY(-3px); border-color: var(--border1); }
+
+  .theme-preview {
+    height: 54px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px;
+  }
+
+  .theme-swatch {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .theme-name {
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--surface0);
+    border-top: 1px solid var(--border0);
+  }
+
+  /* ── Element demos ─────────────────────────────────── */
+  .demo-strip {
+    background: #0d0d14;
+    border: 1px solid var(--border0);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .demo-label {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-right: auto;
+  }
+
+  /* fake toggle */
+  .fake-toggle {
+    width: 44px; height: 24px;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.2s;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .fake-toggle.on  { background: #6991ff; }
+  .fake-toggle.off { background: #262638; }
+  .fake-toggle::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border-radius: 9px;
+    background: #fff;
+    top: 3px;
+    transition: left 0.2s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .fake-toggle.on::after  { left: 23px; }
+  .fake-toggle.off::after { left: 3px; }
+
+  /* fake button */
+  .fake-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 7px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.08s;
+  }
+  .fake-btn:hover   { background: var(--accent2); }
+  .fake-btn:active  { transform: scale(0.96); }
+
+  /* fake slider */
+  .fake-slider-wrap { flex: 1; min-width: 120px; }
+  .fake-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+  /* ── scrollbar ─────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border1); border-radius: 3px; }
+
+  /* ── footer ────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border0);
+    padding: 28px 0 0;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── responsive ────────────────────────────────────── */
+  @media (max-width: 820px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; padding: 32px 20px; }
+    .theme-grid { grid-template-columns: repeat(2,1fr); }
+    #hero h1 { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    [span_1](start_span)<div class="chip">v2.2.0[span_1](end_span)</div>
+    <h1>XMC<span>Lib</span></h1>
+    <p>Roblox UI Framework</p>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Getting Started</div>
+    <a class="nav-link active" href="#overview"><span class="dot"></span>Overview</a>
+    <a class="nav-link" href="#install"><span class="dot"></span>Installation</a>
+    <a class="nav-link" href="#changelog"><span class="dot"></span>Changelog</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Core API</div>
+    <a class="nav-link" href="#xmclib"><span class="dot"></span>XMCLib</a>
+    <a class="nav-link" href="#themes"><span class="dot"></span>Themes</a>
+    <a class="nav-link" href="#config"><span class="dot"></span>Config</a>
+    <a class="nav-link" href="#notify"><span class="dot"></span>Notifications</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">UI Components</div>
+    <a class="nav-link" href="#window"><span class="dot"></span>Window</a>
+    <a class="nav-link" href="#tab"><span class="dot"></span>Tab</a>
+    <a class="nav-link" href="#section"><span class="dot"></span>Section</a>
+    <a class="nav-link" href="#button"><span class="dot"></span>Button</a>
+    <a class="nav-link" href="#toggle"><span class="dot"></span>Toggle</a>
+    <a class="nav-link" href="#slider"><span class="dot"></span>Slider</a>
+    <a class="nav-link" href="#dropdown"><span class="dot"></span>Dropdown</a>
+    <a class="nav-link" href="#textbox"><span class="dot"></span>Textbox</a>
+    <a class="nav-link" href="#label"><span class="dot"></span>Label</a>
+    <a class="nav-link" href="#keybind"><span class="dot"></span>Keybind</a>
+    <a class="nav-link" href="#separator"><span class="dot"></span>Separator</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Internals</div>
+    <a class="nav-link" href="#utility"><span class="dot"></span>Utility</a>
+    <a class="nav-link" href="#drag"><span class="dot"></span>Drag</a>
+    <a class="nav-link" href="#zindex"><span class="dot"></span>ZIndex Manager</a>
+    <a class="nav-link" href="#signals"><span class="dot"></span>Custom Signals</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <div id="hero">
+    <div class="hero-glow"></div>
+    [span_2](start_span)<div class="version-badge"><span class="pulse"></span> v2.2.0[span_2](end_span) [span_3](start_span)— Memory-Safe · Touch-Ready · Toggle Ball[span_3](end_span)</div>
+    <h1>XMC<span>Lib</span><br/>Documentation</h1>
+    <p>A production-grade Roblox UI library. Memory-safe, mobile-ready, multi-window safe with dynamic ZIndex management.</p>
+    <div class="badges">
+      <span class="badge badge-blue">Executor Compatible</span>
+      <span class="badge badge-blue">LocalScript Compatible</span>
+      <span class="badge badge-green">Touch Support</span>
+      <span class="badge badge-green">Memory Safe</span>
+      <span class="badge badge-warn">Luau</span>
+    </div>
+  </div>
+
+  <div class="doc-section" id="overview">
+    <div class="section-tag">OVERVIEW</div>
+    <h2>What is XMCLib?</h2>
+    <p>XMCLib is a full-featured Roblox UI framework for building rich, themeable interfaces in both executor and LocalScript contexts. It provides windows, tabs, sections, and a complete set of interactive elements — all with consistent theming, smooth animations, and clean memory management.</p>
+
+    <h3>Key Features</h3>
+    <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin:10px 0;">
+      [span_4](start_span)<li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Toggle Ball — draggable floating button to toggle UI visibility[span_4](end_span). [span_5](start_span)Default icon is rbxassetid://525701437[span_5](end_span).</li>
+      [span_6](start_span)<li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Compact layout — sidebar 120px, topbar 36px, default size 520x380[span_6](end_span). [span_7](start_span)Much better on small/mobile screens[span_7](end_span).</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Memory-safe: all global connections are tracked and disconnected on destroy</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Touch / mobile support on Slider, Dropdown, Drag</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Dynamic ZIndex — no conflicts between multiple windows</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> 4 built-in themes (Dark, Purple, Red, Green) + custom theme support</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Config system with JSON save/load</li>
+      <li style="display:flex;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--success)">✓</span> Custom signal registry</li>
+    </ul>
+  </div>
+
+  <div class="doc-section" id="install">
+    <div class="section-tag">INSTALL</div>
+    <h2>Installation</h2>
+    <p>Load XMCLib via <span class="inline-code">loadstring</span> from an executor, or <span class="inline-code">require</span> it as a ModuleScript.</p>
+
+    <h3>Executor (loadstring)</h3>
+<pre><span class="cm">-- Load and initialise XMCLib</span>
+<span class="kw">local</span> <span class="id">XMCLib</span> <span class="kw">=</span> <span class="fn">loadstring</span>(<span class="fn">game</span>:<span class="fn">HttpGet</span>(<span class="str">"https://your-host/XMCLib.lua"</span>))()
+<span class="lang-tag">lua</span></pre>
+
+    <h3>ModuleScript (require)</h3>
+<pre><span class="kw">local</span> <span class="id">XMCLib</span> <span class="kw">=</span> <span class="fn">require</span>(<span class="id">path</span>.<span class="id">to</span>.<span class="id">XMCLib</span>)
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box note">
+      <strong>ℹ NOTE</strong>
+      The last line of the source must return the instance: <code>return XMCLib.new()</code>. The original source has a bug — <code>return XMCLib.new() and print(version)</code> returns <code>nil</code> because <code>version</code> is undefined in that scope and <code>print()</code> returns nil. Fix it as shown below.
+    </div>
+
+<pre><span class="cm">-- Correct entry point</span>
+<span class="kw">local</span> <span class="id">lib</span> <span class="kw">=</span> <span class="id">XMCLib</span>.<span class="fn">new</span>()
+[span_8](start_span)<span class="fn">print</span>(<span class="id">lib</span>._version) <span class="cm">-- "2.2.0"[span_8](end_span)</span>
+<span class="kw">return</span> <span class="id">lib</span>
+<span class="lang-tag">lua</span></pre>
+
+    <h3>Quick Start</h3>
+<pre><span class="kw">local</span> <span class="id">lib</span>  <span class="kw">=</span> <span class="fn">require</span>(<span class="id">XMCLib</span>)
+[span_9](start_span)<span class="kw">local</span> <span class="id">win</span>  <span class="kw">=</span> <span class="id">lib</span>:<span class="fn">CreateWindow</span>({ <span class="id">Title</span> <span class="kw">=</span> <span class="str">"My Script"</span>, <span class="id">Width</span> <span class="kw">=</span> <span class="num">520</span>, <span class="id">Height</span> <span class="kw">=</span> <span class="num">380</span> }) <span class="cm">--[span_9](end_span)</span>
+<span class="kw">local</span> <span class="id">tab</span>  <span class="kw">=</span> <span class="id">win</span>:<span class="fn">CreateTab</span>(<span class="str">"Main"</span>, <span class="str">"⚙"</span>)
+<span class="kw">local</span> <span class="id">sec</span>  <span class="kw">=</span> <span class="id">tab</span>:<span class="fn">CreateSection</span>(<span class="str">"Settings"</span>)
+
+<span class="id">sec</span>:<span class="fn">CreateToggle</span>({
+    <span class="id">Name</span>     <span class="kw">=</span> <span class="str">"Enable Feature"</span>,
+    <span class="id">Default</span>  <span class="kw">=</span> <span class="kw">false</span>,
+    <span class="id">Flag</span>     <span class="kw">=</span> <span class="str">"featureOn"</span>,
+    <span class="id">Callback</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="id">state</span>)
+        <span class="fn">print</span>(<span class="str">"Feature:"</span>, <span class="id">state</span>)
+    <span class="kw">end</span>,
+})
+
+<span class="id">lib</span>:<span class="fn">BindToggleKey</span>(<span class="id">Enum</span>.<span class="id">KeyCode</span>.<span class="id">RightShift</span>)
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="changelog">
+    <div class="section-tag">CHANGELOG</div>
+    <h2>Changelog</h2>
+
+    [span_10](start_span)<h3>v2.2.0[span_10](end_span)</h3>
+    <ul class="changelog-list">
+      [span_11](start_span)<li><span class="cl-tag cl-new">NEW</span> Toggle Ball — a draggable floating button (touch + mouse) that shows/hides all windows[span_11](end_span). [span_12](start_span)Default icon: rbxassetid://525701437[span_12](end_span). [span_13](start_span)Set via CreateWindow { ToggleIcon = "rbxassetid://..." } or at runtime with lib:SetToggleIcon(id)[span_13](end_span).</li>
+      [span_14](start_span)<li><span class="cl-tag cl-new">NEW</span> Compact layout — sidebar narrowed to 120 px, topbar to 36 px, default window size 520×380[span_14](end_span). [span_15](start_span)Much better on small/mobile screens[span_15](end_span).</li>
+      [span_16](start_span)<li><span class="cl-tag cl-new">NEW</span> Mobile-friendly Toggle Ball — fully draggable on touch devices; tap to toggle, drag to reposition[span_16](end_span).</li>
+    </ul>
+
+    <br>
+    <h3>v2.1.0</h3>
+    <ul class="changelog-list">
+      <li><span class="cl-tag cl-fix">FIX</span>Memory leaks — all <code>UserInputService</code> global connections are now stored in <code>element._connections</code> and cleanly <code>Disconnect()</code>ed when <code>:Destroy()</code> is called on Slider, Dropdown, and Keybind.</li>
+      <li><span class="cl-tag cl-fix">FIX</span>Mobile / Touch support — Slider, Dropdown, and the Drag module now handle <code>Enum.UserInputType.Touch</code> alongside mouse events everywhere.</li>
+      <li><span class="cl-tag cl-fix">FIX</span>Dynamic ZIndex — panels and notifications no longer use hardcoded ZIndex values. Every window is assigned a base ZIndex tier; all children and floating panels are computed relative to it, preventing conflicts.</li>
+    </ul>
+  </div>
+
+  <div class="doc-section" id="xmclib">
+    <div class="section-tag">CORE</div>
+    <h2>XMCLib</h2>
+    <p>The root object. Created via <span class="inline-code">XMCLib.new()</span>.</p>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">XMCLib.new</span>
+        <span class="signature">() </span>
+        <span class="ret">→ XMCLib</span>
+      </div>
+      <div class="api-card-body">
+        <p>Creates a new XMCLib instance. Mounts a <code>ScreenGui</code> (tries <code>gethui()</code>, then <code>CoreGui</code>, then <code>PlayerGui</code>) and initialises the Dark theme.</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:CreateWindow</span>
+        <span class="signature">(opts: table | string)</span>
+        <span class="ret">→ Window</span>
+      </div>
+      <div class="api-card-body">
+        <p>Creates a draggable, animated window with sidebar, tabs, and window controls.</p>
+        <table class="params-table">
+          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          <tr><td>Title</td><td>string</td><td>Window title shown in the sidebar logo area.</td></tr>
+          <tr><td>Width <span class="opt">opt</span></td><td>number</td><td>Window width in pixels. [span_17](start_span)Default: <code>520</code>[span_17](end_span).</td></tr>
+          <tr><td>Height <span class="opt">opt</span></td><td>number</td><td>Window height in pixels. [span_18](start_span)Default: <code>380</code>[span_18](end_span).</td></tr>
+          <tr><td>Position <span class="opt">opt</span></td><td>UDim2</td><td>Initial position. Default: centered.</td></tr>
+          [span_19](start_span)<tr><td>ToggleIcon <span class="opt">opt</span></td><td>string</td><td>Overrides the Toggle Ball icon for this window[span_19](end_span). [span_20](start_span)Default: <code>rbxassetid://525701437</code>[span_20](end_span).</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:SetToggleIcon</span>
+        <span class="signature">(iconId: string)</span>
+        <span class="ret">→ void</span>
+      </div>
+      <div class="api-card-body">
+        [span_21](start_span)<p>Update the toggle ball's icon at runtime[span_21](end_span).</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:SetToggleBallVisible</span>
+        <span class="signature">(state: boolean)</span>
+        <span class="ret">→ void</span>
+      </div>
+      <div class="api-card-body">
+        [span_22](start_span)<p>Show or hide the toggle ball itself[span_22](end_span).</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:BindToggleKey</span>
+        <span class="signature">(key: Enum.KeyCode)</span>
+        <span class="ret">→ void</span>
+      </div>
+      <div class="api-card-body">
+        <p>Binds a keyboard shortcut to toggle visibility of all windows. Typical usage: <code>Enum.KeyCode.RightShift</code>.</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:SetVisible / :ToggleVisible</span>
+        <span class="signature">(state: boolean?)</span>
+        <span class="ret">→ void</span>
+      </div>
+      <div class="api-card-body">
+        <p>Show or hide all windows. <code>ToggleVisible</code> flips the current state.</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:Notify</span>
+        <span class="signature">(opts: table)</span>
+        <span class="ret">→ Frame</span>
+      </div>
+      <div class="api-card-body">
+        <p>See the <a href="#notify" style="color:var(--accent)">Notifications</a> section.</p>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:Destroy</span>
+        <span class="signature">()</span>
+        <span class="ret">→ void</span>
+      </div>
+      <div class="api-card-body">
+        <p>Destroys the entire ScreenGui, removing all UI from the game.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section" id="themes">
+    <div class="section-tag">THEMING</div>
+    <h2>Themes</h2>
+    <p>XMCLib ships with 4 built-in themes. Apply with the theme methods or pass a custom table to <span class="inline-code">:SetTheme()</span>.</p>
+
+    <div class="theme-grid">
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0a0f,#12121e)">
+          <span class="theme-swatch" style="background:#6991ff"></span>
+          <span class="theme-swatch" style="background:#2d2d45;margin-left:4px"></span>
+        </div>
+        <div class="theme-name" style="color:#6991ff">Dark</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#090810,#11100e)">
+          <span class="theme-swatch" style="background:#a86eff"></span>
+          <span class="theme-swatch" style="background:#2d2448;margin-left:4px"></span>
+        </div>
+        <div class="theme-name" style="color:#a86eff">Purple</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0e0808,#180e0e)">
+          <span class="theme-swatch" style="background:#eb4b4b"></span>
+          <span class="theme-swatch" style="background:#3a1e1e;margin-left:4px"></span>
+        </div>
+        <div class="theme-name" style="color:#eb4b4b">Red</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#080e0a,#0d1611)">
+          <span class="theme-swatch" style="background:#48d280"></span>
+          <span class="theme-swatch" style="background:#1c3424;margin-left:4px"></span>
+        </div>
+        <div class="theme-name" style="color:#48d280">Green</div>
+      </div>
+    </div>
+
+<pre><span class="id">lib</span>:<span class="fn">ThemeDark</span>()    <span class="cm">-- default blue-dark</span>
+<span class="id">lib</span>:<span class="fn">ThemePurple</span>()  <span class="cm">-- purple accent</span>
+<span class="id">lib</span>:<span class="fn">ThemeRed</span>()     <span class="cm">-- red accent</span>
+<span class="id">lib</span>:<span class="fn">ThemeGreen</span>()   <span class="cm">-- green accent</span>
+
+<span class="cm">-- Custom theme (override any keys)</span>
+<span class="id">lib</span>:<span class="fn">SetTheme</span>({
+    <span class="id">Accent</span>    <span class="kw">=</span> <span class="id">Color3</span>.<span class="fn">fromRGB</span>(<span class="num">255</span>, <span class="num">165</span>, <span class="num">0</span>),
+    <span class="id">ToggleOn</span>  <span class="kw">=</span> <span class="id">Color3</span>.<span class="fn">fromRGB</span>(<span class="num">255</span>, <span class="num">165</span>, <span class="num">0</span>),
+    <span class="id">SliderFill</span><span class="kw">=</span> <span class="id">Color3</span>.<span class="fn">fromRGB</span>(<span class="num">255</span>, <span class="num">165</span>, <span class="num">0</span>),
+})
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box warn">
+      <strong>⚠ NOTE</strong>
+      Themes apply at creation time. Changing the theme after windows are created does <em>not</em> live-recolor existing elements — destroy and recreate windows to apply a new theme.
+    </div>
+  </div>
+
+  <div class="doc-section" id="config">
+    <div class="section-tag">CONFIG</div>
+    <h2>Config System</h2>
+    <p>Each element that accepts a <span class="inline-code">Flag</span> option automatically registers and syncs its state with the Config module. You can save/load to disk (executor only).</p>
+
+<pre><span class="cm">-- Register a flag manually</span>
+<span class="id">lib</span>.<span class="id">Config</span>:<span class="fn">Register</span>(<span class="str">"myFlag"</span>, <span class="kw">false</span>)
+
+<span class="cm">-- Read / write a flag</span>
+<span class="id">lib</span>.<span class="id">Config</span>:<span class="fn">Set</span>(<span class="str">"myFlag"</span>, <span class="kw">true</span>)
+<span class="kw">local</span> <span class="id">val</span> <span class="kw">=</span> <span class="id">lib</span>.<span class="id">Config</span>:<span class="fn">Get</span>(<span class="str">"myFlag"</span>) <span class="cm">-- true</span>
+
+<span class="cm">-- Persist to file (executor only)</span>
+<span class="id">lib</span>.<span class="id">Config</span>:<span class="fn">Save</span>(<span class="str">"profile1"</span>)  <span class="cm">-- writes XMCLib_profile1.json</span>
+<span class="id">lib</span>.<span class="id">Config</span>:<span class="fn">Load</span>(<span class="str">"profile1"</span>)  <span class="cm">-- restores all flag values</span>
+<span class="lang-tag">lua</span></pre>
+
+    <table class="params-table" style="margin-top:16px">
+      <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+      <tr><td>:Register(flag, default)</td><td>void</td><td>Registers a flag with a default value. No-op if already registered.</td></tr>
+      <tr><td>:Set(flag, val)</td><td>void</td><td>Sets a flag value.</td></tr>
+      <tr><td>:Get(flag)</td><td>any</td><td>Returns current flag value.</td></tr>
+      <tr><td>:Save(name?)</td><td>bool, msg</td><td>Saves all flags to <code>XMCLib_{name}.json</code>.</td></tr>
+      <tr><td>:Load(name?)</td><td>bool, msg</td><td>Loads flags from <code>XMCLib_{name}.json</code>.</td></tr>
+    </table>
+  </div>
+
+  <div class="doc-section" id="notify">
+    <div class="section-tag">NOTIFICATIONS</div>
+    <h2>Notifications</h2>
+    <p>Stacked, auto-dismissing toast notifications with a progress bar. Four types: <code>info</code>, <code>success</code>, <code>warning</code>, <code>error</code>.</p>
+
+<pre><span class="id">lib</span>:<span class="fn">Notify</span>({
+    <span class="id">Title</span>    <span class="kw">=</span> <span class="str">"Success"</span>,
+    <span class="id">Message</span>  <span class="kw">=</span> <span class="str">"Config saved!"</span>,
+    <span class="id">Type</span>     <span class="kw">=</span> <span class="str">"success"</span>,  <span class="cm">-- "info" | "success" | "warning" | "error"</span>
+    <span class="id">Duration</span> <span class="kw">=</span> <span class="num">4</span>,           <span class="cm">-- seconds</span>
+})
+<span class="lang-tag">lua</span></pre>
+
+    <table class="params-table" style="margin-top:12px">
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+      <tr><td>Title</td><td>string</td><td>Bold heading text.</td></tr>
+      <tr><td>Message <span class="opt">opt</span></td><td>string</td><td>Body text. Supports wrapping.</td></tr>
+      <tr><td>Type <span class="opt">opt</span></td><td>string</td><td><code>"info"</code> · <code>"success"</code> · <code>"warning"</code> · <code>"error"</code>. Default: <code>"info"</code>.</td></tr>
+      <tr><td>Duration <span class="opt">opt</span></td><td>number</td><td>Auto-dismiss time in seconds. Default: <code>4</code>.</td></tr>
+    </table>
+  </div>
+
+  <div class="doc-section" id="window">
+    <div class="section-tag">COMPONENT</div>
+    <h2>Window</h2>
+    <p>A floating, draggable frame with a sidebar for tab navigation and a top bar with minimize / close controls. Returns a Window object.</p>
+
+<pre><span class="kw">local</span> <span class="id">win</span> <span class="kw">=</span> <span class="id">lib</span>:<span class="fn">CreateWindow</span>({
+    <span class="id">Title</span>    <span class="kw">=</span> <span class="str">"My UI"</span>,
+    <span class="id">Width</span>    <span class="kw">=</span> <span class="num">520</span>,
+    <span class="id">Height</span>   <span class="kw">=</span> <span class="num">380</span>,
+    <span class="id">Position</span> <span class="kw">=</span> <span class="id">UDim2</span>.<span class="fn">new</span>(<span class="num">0.5</span>, <span class="kw">-</span><span class="num">260</span>, <span class="num">0.5</span>, <span class="kw">-</span><span class="num">190</span>),
+})
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box note">
+      <strong>ℹ ZIndex tiers</strong>
+      Each window claims a unique ZIndex tier (multiples of 20). Tier 1 = ZIndex 10–29, Tier 2 = 30–49, etc. Children are offset inside the tier, so multiple windows never conflict.
+    </div>
+
+    <h3>Window Methods</h3>
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:CreateTab</span>
+        <span class="signature">(name: string, icon?: string)</span>
+        <span class="ret">→ Tab</span>
+      </div>
+      <div class="api-card-body">
+        <p>Adds a tab button to the sidebar and returns a <a href="#tab" style="color:var(--accent)">Tab</a> object. The first tab created is activated automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section" id="tab">
+    <div class="section-tag">COMPONENT</div>
+    <h2>Tab</h2>
+    <p>Represents a named panel inside a window. Each tab contains sections.</p>
+
+<pre><span class="kw">local</span> <span class="id">tab</span> <span class="kw">=</span> <span class="id">win</span>:<span class="fn">CreateTab</span>(<span class="str">"Combat"</span>, <span class="str">"⚔"</span>)
+<span class="lang-tag">lua</span></pre>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <span class="method">:CreateSection</span>
+        <span class="signature">(title: string)</span>
+        <span class="ret">→ Section</span>
+      </div>
+      <div class="api-card-body">
+        <p>Creates a visually grouped card inside the tab's scrollable pane.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section" id="section">
+    <div class="section-tag">COMPONENT</div>
+    <h2>Section</h2>
+    <p>A titled card group. Elements are added to sections, which automatically stack vertically with list layout.</p>
+
+<pre><span class="kw">local</span> <span class="id">sec</span> <span class="kw">=</span> <span class="id">tab</span>:<span class="fn">CreateSection</span>(<span class="str">"Aimbot"</span>)
+<span class="cm">-- sec now exposes: CreateButton, CreateToggle, CreateSlider,</span>
+<span class="cm">--   CreateDropdown, CreateTextbox, CreateLabel,</span>
+<span class="cm">--   CreateKeybind, CreateSeparator</span>
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="button">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Button</h2>
+
+    <div class="demo-strip">
+      <span class="demo-label">preview</span>
+      <button class="fake-btn" onclick="this.textContent='✓ Done'; setTimeout(()=>this.textContent='Execute',1200)">Execute</button>
+      <button class="fake-btn" style="background:#2d4190;color:#6991ff">Secondary</button>
+    </div>
+
+<pre><span class="kw">local</span> <span class="id">btn</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateButton</span>({
+    <span class="id">Name</span>        <span class="kw">=</span> <span class="str">"Teleport"</span>,
+    <span class="id">Description</span> <span class="kw">=</span> <span class="str">"Teleport to target"</span>,  <span class="cm">-- optional</span>
+    <span class="id">ButtonText</span>  <span class="kw">=</span> <span class="str">"Run"</span>,
+    <span class="id">Callback</span>    <span class="kw">=</span> <span class="kw">function</span>()
+        <span class="cm">-- called on click</span>
+    <span class="kw">end</span>,
+})
+
+<span class="cm">-- Methods</span>
+<span class="id">btn</span>:<span class="fn">SetText</span>(<span class="str">"Done"</span>)
+<span class="id">btn</span>:<span class="fn">SetCallback</span>(<span class="kw">function</span>() <span class="kw">end</span>)
+<span class="id">btn</span>:<span class="fn">Destroy</span>()
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="toggle">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Toggle</h2>
+
+    <div class="demo-strip">
+      <span class="demo-label">preview</span>
+      <div class="fake-toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+      <div class="fake-toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+    </div>
+
+<pre><span class="kw">local</span> <span class="id">tog</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateToggle</span>({
+    <span class="id">Name</span>        <span class="kw">=</span> <span class="str">"Silent Aim"</span>,
+    <span class="id">Description</span> <span class="kw">=</span> <span class="str">"Redirects bullets"</span>,
+    <span class="id">Default</span>     <span class="kw">=</span> <span class="kw">false</span>,
+    <span class="id">Flag</span>        <span class="kw">=</span> <span class="str">"silentAim"</span>,
+    <span class="id">Callback</span>    <span class="kw">=</span> <span class="kw">function</span>(<span class="id">state</span>)
+        <span class="fn">print</span>(<span class="id">state</span>) <span class="cm">-- true / false</span>
+    <span class="kw">end</span>,
+})
+
+<span class="id">tog</span>:<span class="fn">Set</span>(<span class="kw">true</span>)
+<span class="id">tog</span>:<span class="fn">Get</span>()      <span class="cm">-- → true</span>
+<span class="id">tog</span>:<span class="fn">Toggle</span>()
+<span class="id">tog</span>:<span class="fn">Destroy</span>()
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="slider">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Slider</h2>
+
+    <div class="demo-strip">
+      <span class="demo-label">preview</span>
+      <div class="fake-slider-wrap">
+        <input type="range" class="fake-slider" min="0" max="100" value="60"/>
+      </div>
+    </div>
+
+<pre><span class="kw">local</span> <span class="id">sld</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateSlider</span>({
+    <span class="id">Name</span>     <span class="kw">=</span> <span class="str">"FOV"</span>,
+    <span class="id">Min</span>      <span class="kw">=</span> <span class="num">1</span>,
+    <span class="id">Max</span>      <span class="kw">=</span> <span class="num">360</span>,
+    <span class="id">Default</span>  <span class="kw">=</span> <span class="num">90</span>,
+    <span class="id">Decimals</span> <span class="kw">=</span> <span class="num">0</span>,
+    <span class="id">Suffix</span>   <span class="kw">=</span> <span class="str">"°"</span>,
+    <span class="id">Flag</span>     <span class="kw">=</span> <span class="str">"fov"</span>,
+    <span class="id">Callback</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="id">val</span>)
+        <span class="fn">print</span>(<span class="id">val</span>)
+    <span class="kw">end</span>,
+})
+
+<span class="id">sld</span>:<span class="fn">Set</span>(<span class="num">120</span>)
+<span class="id">sld</span>:<span class="fn">Get</span>()   <span class="cm">-- → 120</span>
+<span class="id">sld</span>:<span class="fn">Destroy</span>()  <span class="cm">-- also disconnects global UIS listeners</span>
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box success">
+      <strong>✓ Memory-safe</strong>
+      <code>:Destroy()</code> calls <code>Utility.DisconnectAll()</code> on the internal connections table, cleaning up the two global <code>UserInputService</code> listeners.
+    </div>
+  </div>
+
+  <div class="doc-section" id="dropdown">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Dropdown</h2>
+    <p>A floating panel anchored below the button. Closes when clicking outside. Supports touch on mobile.</p>
+
+<pre><span class="kw">local</span> <span class="id">dd</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateDropdown</span>({
+    <span class="id">Name</span>    <span class="kw">=</span> <span class="str">"Team"</span>,
+    <span class="id">Items</span>   <span class="kw">=</span> { <span class="str">"Red"</span>, <span class="str">"Blue"</span>, <span class="str">"Green"</span> },
+    <span class="id">Default</span> <span class="kw">=</span> <span class="str">"Red"</span>,
+    <span class="id">Flag</span>    <span class="kw">=</span> <span class="str">"team"</span>,
+    <span class="id">Callback</span><span class="kw">=</span> <span class="kw">function</span>(<span class="id">val</span>) <span class="fn">print</span>(<span class="id">val</span>) <span class="kw">end</span>,
+})
+
+<span class="id">dd</span>:<span class="fn">Set</span>(<span class="str">"Blue"</span>)
+<span class="id">dd</span>:<span class="fn">Get</span>()                   <span class="cm">-- → "Blue"</span>
+<span class="id">dd</span>:<span class="fn">AddItem</span>(<span class="str">"Yellow"</span>)       <span class="cm">-- appends</span>
+<span class="id">dd</span>:<span class="fn">SetItems</span>({ <span class="str">"A"</span>, <span class="str">"B"</span> }) <span class="cm">-- replaces all items</span>
+<span class="id">dd</span>:<span class="fn">Destroy</span>()               <span class="cm">-- disconnects UIS + destroys floating panel</span>
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="textbox">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Textbox</h2>
+
+<pre><span class="kw">local</span> <span class="id">tb</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateTextbox</span>({
+    <span class="id">Name</span>        <span class="kw">=</span> <span class="str">"Target Name"</span>,
+    <span class="id">Placeholder</span> <span class="kw">=</span> <span class="str">"e.g. Player1"</span>,
+    <span class="id">Default</span>     <span class="kw">=</span> <span class="str">""</span>,
+    <span class="id">Flag</span>        <span class="kw">=</span> <span class="str">"targetName"</span>,
+    <span class="id">Callback</span>    <span class="kw">=</span> <span class="kw">function</span>(<span class="id">text</span>, <span class="id">pressedEnter</span>) <span class="kw">end</span>,
+    <span class="id">OnFocus</span>     <span class="kw">=</span> <span class="kw">function</span>(<span class="id">text</span>) <span class="kw">end</span>,
+    <span class="id">OnFocusLost</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="id">text</span>, <span class="id">enter</span>) <span class="kw">end</span>,
+})
+
+<span class="id">tb</span>:<span class="fn">Set</span>(<span class="str">"Player2"</span>)
+<span class="id">tb</span>:<span class="fn">Get</span>()        <span class="cm">-- → current text</span>
+<span class="id">tb</span>:<span class="fn">Destroy</span>()
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box note">
+      <strong>ℹ No global connections</strong>
+      Textbox uses only Roblox's built-in <code>TextBox.Focused</code> and <code>TextBox.FocusLost</code> events — no global <code>UserInputService</code> listeners, zero leak risk.
+    </div>
+  </div>
+
+  <div class="doc-section" id="label">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Label</h2>
+    <p>A read-only text display. Useful for status values, version info, or info rows.</p>
+
+<pre><span class="kw">local</span> <span class="id">lbl</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateLabel</span>({
+    <span class="id">Text</span>     <span class="kw">=</span> <span class="str">"Status: Active"</span>,
+    <span class="id">Color</span>    <span class="kw">=</span> <span class="id">Color3</span>.<span class="fn">fromRGB</span>(<span class="num">72</span>, <span class="num">210</span>, <span class="num">128</span>),
+    <span class="id">TextSize</span> <span class="kw">=</span> <span class="num">12</span>,
+})
+
+<span class="id">lbl</span>:<span class="fn">Set</span>(<span class="str">"Status: Idle"</span>)
+<span class="id">lbl</span>:<span class="fn">SetColor</span>(<span class="id">Color3</span>.<span class="fn">fromRGB</span>(<span class="num">140</span>, <span class="num">140</span>, <span class="num">168</span>))
+<span class="id">lbl</span>:<span class="fn">Destroy</span>()
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="keybind">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Keybind</h2>
+    <p>Click to enter listen mode, then press any key to bind it. The callback fires every time the bound key is pressed.</p>
+
+<pre><span class="kw">local</span> <span class="id">kb</span> <span class="kw">=</span> <span class="id">sec</span>:<span class="fn">CreateKeybind</span>({
+    <span class="id">Name</span>    <span class="kw">=</span> <span class="str">"Toggle Fly"</span>,
+    <span class="id">Default</span> <span class="kw">=</span> <span class="id">Enum</span>.<span class="id">KeyCode</span>.<span class="id">F</span>,
+    <span class="id">Flag</span>    <span class="kw">=</span> <span class="str">"flyKey"</span>,
+    <span class="id">Callback</span><span class="kw">=</span> <span class="kw">function</span>(<span class="id">keyCode</span>)
+        <span class="fn">print</span>(<span class="str">"Key pressed:"</span>, <span class="id">keyCode</span>.<span class="id">Name</span>)
+    <span class="kw">end</span>,
+})
+
+<span class="id">kb</span>:<span class="fn">Get</span>()                      <span class="cm">-- → Enum.KeyCode</span>
+<span class="id">kb</span>:<span class="fn">Set</span>(<span class="id">Enum</span>.<span class="id">KeyCode</span>.<span class="id">G</span>)
+<span class="id">kb</span>:<span class="fn">Destroy</span>()                   <span class="cm">-- disconnects all UIS listeners</span>
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box warn">
+      <strong>⚠ Two connection types</strong>
+      The keybind element uses two kinds of UIS connections: a temporary <em>listen connection</em> (active only while awaiting input) and a permanent <em>press connection</em>. Both are cleaned up by <code>:Destroy()</code>.
+    </div>
+  </div>
+
+  <div class="doc-section" id="separator">
+    <div class="section-tag">ELEMENT</div>
+    <h2>Separator</h2>
+    <p>A visual divider, optionally with a centered label.</p>
+
+<pre><span class="id">sec</span>:<span class="fn">CreateSeparator</span>()                   <span class="cm">-- plain line</span>
+<span class="id">sec</span>:<span class="fn">CreateSeparator</span>({ <span class="id">Label</span> <span class="kw">=</span> <span class="str">"Advanced"</span> }) <span class="cm">-- labeled</span>
+<span class="lang-tag">lua</span></pre>
+  </div>
+
+  <div class="doc-section" id="utility">
+    <div class="section-tag">INTERNAL</div>
+    <h2>Utility</h2>
+    <p>Shared helpers used throughout the library.</p>
+
+    <table class="params-table">
+      <tr><th>Function</th><th>Signature</th><th>Description</th></tr>
+      <tr><td>Utility.Tween</td><td>(inst, info, props)</td><td>Safe tween — silently skips destroyed instances.</td></tr>
+      <tr><td>Utility.SafeCall</td><td>(fn, ...)</td><td>Wraps any function in pcall; logs errors to output.</td></tr>
+      <tr><td>Utility.Connect</td><td>(conns, signal, fn)</td><td>Connects a signal and pushes the connection into <code>conns</code>.</td></tr>
+      <tr><td>Utility.DisconnectAll</td><td>(conns)</td><td>Disconnects and clears all entries in <code>conns</code>.</td></tr>
+      <tr><td>Utility.Corner</td><td>(parent, radius)</td><td>Creates a <code>UICorner</code>.</td></tr>
+      <tr><td>Utility.Pad</td><td>(p, t, b, l, r)</td><td>Creates a <code>UIPadding</code>.</td></tr>
+      <tr><td>Utility.Stroke</td><td>(p, color, thickness)</td><td>Creates a <code>UIStroke</code>.</td></tr>
+      <tr><td>Utility.Clamp</td><td>(v, min, max)</td><td>Math clamp.</td></tr>
+      <tr><td>Utility.Round</td><td>(v, decimals)</td><td>Rounds to N decimal places.</td></tr>
+      <tr><td>Utility.UID</td><td>()</td><td>Generates a short unique string for instance naming.</td></tr>
+      <tr><td>Utility.IsPrimaryPress</td><td>(inputType)</td><td>Returns true for MouseButton1 or Touch.</td></tr>
+      <tr><td>Utility.IsDragMove</td><td>(inputType)</td><td>Returns true for MouseMovement or Touch.</td></tr>
+      <tr><td>Utility.IsPrimaryRelease</td><td>(inputType)</td><td>Returns true for release of MouseButton1 or Touch.</td></tr>
+    </table>
+  </div>
+
+  <div class="doc-section" id="drag">
+    <div class="section-tag">INTERNAL</div>
+    <h2>Drag Module</h2>
+    <p>Enables mouse and touch drag on any frame.</p>
+
+<pre><span class="cm">-- Used internally by CreateWindow</span>
+<span class="id">Drag</span>.<span class="fn">Enable</span>(<span class="id">root</span>, <span class="id">handle</span>, <span class="id">connectionsTable</span>)
+<span class="cm">-- root   = frame to move</span>
+<span class="cm">-- handle = frame to click-drag on (topBar or logoArea)</span>
+<span class="cm">-- conns  = table to push RBXScriptConnections into</span>
+<span class="lang-tag">lua</span></pre>
+
+    <div class="info-box note">
+      <strong>ℹ Connection management</strong>
+      All drag connections are stored in <code>win._connections</code> and disconnected automatically when the window's Close button is pressed.
+    </div>
+  </div>
+
+  <div class="doc-section" id="zindex">
+    <div class="section-tag">INTERNAL</div>
+    <h2>ZIndex Manager</h2>
+    <p>Prevents ZIndex conflicts when multiple windows or external UI systems coexist.</p>
+
+    <table class="params-table">
+      <tr><th>ZIndex offset</th><th>Element</th></tr>
+      <tr><td>base - 2</td><td>Drop shadow</td></tr>
+      <tr><td>base - 1</td><td>Ambient glow</td></tr>
+      <tr><td>base + 0</td><td>Root frame</td></tr>
+      <tr><td>base + 2</td><td>Content area</td></tr>
+      <tr><td>base + 3</td><td>Sidebar, topbar</td></tr>
+      <tr><td>base + 4</td><td>Sidebar labels</td></tr>
+      <tr><td>base + 5</td><td>Tab buttons, element rows</td></tr>
+      <tr><td>base + 6</td><td>Row labels</td></tr>
+      <tr><td>base + 7</td><td>Interactive controls</td></tr>
+      <tr><td>base + 8</td><td>Interactive overlays</td></tr>
+      <tr><td>base + 14</td><td>Floating dropdown panel</td></tr>
+      <tr><td>base + 15–16</td><td>Dropdown options & labels</td></tr>
+      <tr><td>600+</td><td>Notifications (always on top)</td></tr>
+    </table>
+  </div>
+
+  <div class="doc-section" id="signals">
+    <div class="section-tag">INTERNAL</div>
+    <h2>Custom Signals</h2>
+    <p>A lightweight signal registry not tied to Roblox Instances.</p>
+
+<pre><span class="cm">-- Create a signal</span>
+<span class="fn">CustomSignal</span>(<span class="str">"onDamage"</span>, <span class="kw">nil</span>, <span class="str">"newsignal"</span>)
+
+<span class="cm">-- Subscribe</span>
+<span class="fn">CustomSignal</span>(<span class="str">"onDamage"</span>, <span class="kw">function</span>(<span class="id">params</span>)
+    <span class="fn">print</span>(<span class="str">"Damage:"</span>, <span class="id">params</span>.<span class="id">amount</span>)
+<span class="kw">end</span>, <span class="str">"onsignal"</span>)
+
+<span class="cm">-- Fire</span>
+<span class="fn">CustomSignal</span>(<span class="str">"onDamage"</span>, { <span class="id">amount</span> <span class="kw">=</span> <span class="num">50</span> }, <span class="str">"firesignal"</span>)
+<span class="lang-tag">lua</span></pre>
+
+    <table class="params-table" style="margin-top:12px">
+      <tr><th>Action</th><th>Aliases</th><th>Description</th></tr>
+      <tr><td>newsignal</td><td>newcall</td><td>Creates the signal (no-op if it exists).</td></tr>
+      <tr><td>onsignal</td><td>onsignalevent</td><td>Subscribes a callback. Params arg must be a function.</td></tr>
+      <tr><td>firesignal</td><td>runsignal</td><td>Fires all listeners with params.</td></tr>
+    </table>
+  </div>
+
+  <footer>
+    [span_23](start_span)<span>XMCLib v2.2.0[span_23](end_span)</span>
+    <span>Memory-Safe · Touch-Ready · Dynamic ZIndex</span>
+  </footer>
+
+</main>
+
+<script>
+  // active nav link on scroll
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('.doc-section, #hero');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
