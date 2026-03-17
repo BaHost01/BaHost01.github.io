@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>XMCLib Full Tutorial for Roblox UI Development</title><meta name="description" content="A full XMCLib tutorial for Roblox developers: setup, window creation, tabs, controls, state handling, notifications, and production-ready workflow tips."><link rel="stylesheet" href="../styles.css"></head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html">Bahost Dev Academy</a><nav><ul><li><a href="../index.html">Home</a></li><li><a class="active" href="index.html">Blog</a></li><li><a href="../docs/index.html">Documentation</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../support.html">Support</a></li><li><a href="../privacy.html">Privacy</a></li></ul></nav></div></header>
+<main class="content-page"><div class="container article">
+<h1>XMCLib Full Tutorial: From Setup to Maintainable Roblox UI Workflow</h1>
+<p class="meta">By Bruno "BaHost" • XMCLib tutorial</p>
+<p>This tutorial shows how to implement XMCLib in a realistic Roblox project with a maintainable structure. Instead of only listing methods, we will cover how to organize files, build tabs and controls, manage state, and keep your UI code easy to update over time. The goal is a workflow you can reuse for future interfaces, not just one working demo.</p>
+<h2>Step 1: Prepare project structure</h2>
+<p>Create a clear folder setup before writing control code. Place <code>XMCLib</code> in <code>ReplicatedStorage</code> as a ModuleScript. Add a LocalScript in <code>StarterPlayerScripts</code> for UI initialization. Then create optional helper modules such as <code>UIState</code> and <code>SettingsSerializer</code>. This separation keeps your interface logic modular.</p>
+<p>Recommended early structure:</p>
+<ul>
+<li><strong>ReplicatedStorage/XMCLib</strong> – core library module.</li>
+<li><strong>StarterPlayerScripts/UIBootstrap</strong> – initializes UI and binds callbacks.</li>
+<li><strong>StarterPlayerScripts/Modules/UIState</strong> – stores current user settings.</li>
+</ul>
+<h2>Step 2: Initialize your main window</h2>
+<p>In your bootstrap script, require XMCLib and create one main window with a title and optional subtitle. Avoid creating many independent top-level windows unless your project truly needs that complexity. One coherent root window usually gives a better player experience and simplifies state handling.</p>
+<p>At this stage, verify mobile scaling and draggable behavior if your library supports it. Do not wait until late development to test interaction ergonomics.</p>
+<h2>Step 3: Design tabs around user goals</h2>
+<p>Good tabs are task-oriented. Instead of random names like “Misc,” use goals such as “Movement Settings,” “Visual Preferences,” or “Audio Controls.” When labels reflect player intent, your UI becomes self-explanatory and reduces support questions.</p>
+<p>Each tab should contain related controls only. Overloaded tabs force scrolling and hide important options. If a tab grows too large, split it into sections with clear headings or create a second tab with a direct label.</p>
+<h2>Step 4: Add controls with predictable callbacks</h2>
+<p>When you add a button, toggle, slider, or dropdown, immediately connect it to state updates in one place. Avoid anonymous side effects spread across many scripts. For example, a toggle callback should update <code>UIState.autoSprint</code> and then call a function that applies gameplay changes. This keeps UI and gameplay connected but decoupled.</p>
+<p>Use this pattern repeatedly:</p>
+<ol>
+<li>Validate incoming value.</li>
+<li>Update state table.</li>
+<li>Apply change through dedicated action function.</li>
+<li>Optional: show user feedback notification.</li>
+</ol>
+<h2>Step 5: Implement notifications responsibly</h2>
+<p>Notifications are useful for short feedback, like “Settings saved” or “Audio muted.” Keep them brief and contextual. Avoid flooding players with repeated notifications for every minor UI action. Excessive popups reduce clarity and create noise.</p>
+<p>If XMCLib supports custom notification actions, use them sparingly for high-value actions such as “Undo reset” or “Open controls help.” This improves usability without turning notifications into a second interface layer.</p>
+<h2>Step 6: Persist settings cleanly</h2>
+<p>For client-side preferences, serialize only the values you need: toggles, slider numbers, selected options, and theme mode. Do not persist volatile runtime data. Keep a schema table so you can migrate safely if settings format changes in future versions.</p>
+<p>When loading settings, apply defaults first, then merge saved values. This prevents nil errors and keeps new options backward-compatible for returning users.</p>
+<h2>Step 7: Handle lifecycle and cleanup</h2>
+<p>If your UI can be opened and closed dynamically, connection cleanup is essential. Store event connections in a table and disconnect them when the interface is destroyed. Destroy temporary instances and clear references to avoid memory growth across sessions.</p>
+<p>Also audit callbacks that can fire rapidly, such as sliders. Add debouncing or throttling where appropriate to avoid unnecessary expensive operations, especially if callbacks trigger visual updates or server communication.</p>
+<h2>Step 8: Style and readability standards</h2>
+<p>Consistent typography, spacing, and contrast improve trust and retention. Keep button labels concise. Group related controls visually. Provide enough spacing for touch interactions. Use descriptive section names so users can scan quickly.</p>
+<p>For teams, define style conventions in a short UI guide: naming rules, preferred control order, and notification tone. Consistency helps every contributor ship compatible interface updates.</p>
+<h2>Step 9: Manual test checklist before release</h2>
+<p>Run a structured checklist:</p>
+<ul>
+<li>All tabs open and render correctly on common resolutions.</li>
+<li>Toggles and sliders update state as expected.</li>
+<li>Dropdown values remain stable after reopening UI.</li>
+<li>Touch interactions work without precision issues.</li>
+<li>No duplicate event callbacks after repeated open/close cycles.</li>
+</ul>
+<p>Testing this way turns UI polish from guesswork into engineering discipline.</p>
+<h2>Step 10: Document your public API for future contributors</h2>
+<p>If multiple developers will touch the project, create a short API reference inside your repository. Describe how to create windows, which options are supported by each control, and what callbacks receive as parameters. When API expectations are explicit, contributor code quality improves immediately.</p>
+<p>You should also include one “known limitations” section. For example, if a component currently supports only single-select mode, write that clearly. Honest documentation prevents incorrect assumptions and reduces bug reports caused by misuse rather than implementation defects.</p>
+<h2>Step 11: Plan incremental upgrades</h2>
+<p>Do not rewrite the whole interface for every improvement. Prefer incremental updates with clear changelog entries. Add one improvement, test it on desktop and mobile, then release. This staged approach keeps risk low and makes rollback easy if regressions appear.</p>
+<p>For long-lived projects, incremental quality improvements are more sustainable than occasional full rewrites.</p>
+<h2>Conclusion</h2>
+<p>XMCLib can accelerate Roblox UI development when used with a strong workflow. The keys are organized structure, predictable callback patterns, explicit state management, and lifecycle cleanup. Treat your interface as part of core product quality, not a late-stage decoration. If you apply this tutorial consistently, you will produce UIs that are easier to maintain, easier to scale, and more comfortable for players across devices.</p>
+</div></main>
+<footer class="footer"><div class="container footer-inner"><div><strong>Author:</strong> Bruno "BaHost"</div><div class="footer-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy Policy</a></div></div></footer>
+</body></html>

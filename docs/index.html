@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XMCLib Documentation | Bahost Dev Academy</title>
+  <meta name="description" content="Official-style XMCLib educational documentation: setup, core objects, controls, notifications, and recommended file structure for Roblox projects.">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html">Bahost Dev Academy</a><nav><ul><li><a href="../index.html">Home</a></li><li><a href="../blog/index.html">Blog</a></li><li><a class="active" href="index.html">Documentation</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../support.html">Support</a></li><li><a href="../privacy.html">Privacy</a></li></ul></nav></div></header>
+<main class="content-page">
+  <div class="container article">
+    <h1>Documentation: XMCLib for Roblox UI Development</h1>
+    <p class="meta">Last updated: 2026-03-17 • Educational documentation</p>
+    <h2>1. Installation</h2>
+    <ol>
+      <li>Create a <strong>ModuleScript</strong> named <code>XMCLib</code> in <code>ReplicatedStorage</code>.</li>
+      <li>Paste the library source code.</li>
+      <li>Require it from a LocalScript and initialize your UI window.</li>
+    </ol>
+    <h2>2. Basic window creation</h2>
+    <p>Use a single root window to centralize tabs and controls. Keep a clear naming convention for each section so your team can navigate the UI code quickly.</p>
+    <h2>3. Core components</h2>
+    <ul>
+      <li><strong>Buttons:</strong> Trigger actions with clear callback naming.</li>
+      <li><strong>Toggles:</strong> Store boolean state in one shared state table.</li>
+      <li><strong>Sliders:</strong> Validate min/max ranges and default values.</li>
+      <li><strong>Dropdowns:</strong> Prefer readable labels and stable option IDs.</li>
+      <li><strong>Notifications:</strong> Use them for feedback, not for persistent logs.</li>
+    </ul>
+    <h2>4. Recommended project structure</h2>
+    <p>Split UI logic into modules: <code>UIState</code>, <code>Actions</code>, and <code>Theme</code>. Keep XMCLib bindings thin so game logic stays independent of presentation code.</p>
+    <h2>5. Accessibility and usability notes</h2>
+    <p>Design with sufficient contrast, clear text labels, and predictable spacing. For mobile players, avoid tiny touch targets and test every interaction with touch input.</p>
+    <h2>6. Learning path</h2>
+    <p>For deep practical training, continue with the complete <a href="../blog/xmclib-full-tutorial.html">XMCLib full tutorial</a> and the <a href="../blog/roblox-scripting-best-practices.html">best practices article</a>.</p>
+  </div>
+</main>
+<footer class="footer"><div class="container footer-inner"><div><strong>Author:</strong> Bruno "BaHost"</div><div class="footer-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy Policy</a></div></div></footer>
+</body>
+</html>
