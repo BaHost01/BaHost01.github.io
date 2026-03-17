@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Common Mistakes in Lua Scripting (and How to Fix Them)</title><meta name="description" content="Common Lua scripting mistakes in Roblox projects and practical fixes: nil errors, bad scope, duplicated logic, poor structure, and unreliable event handling."><link rel="stylesheet" href="../styles.css"></head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html">Bahost Dev Academy</a><nav><ul><li><a href="../index.html">Home</a></li><li><a class="active" href="index.html">Blog</a></li><li><a href="../docs/index.html">Documentation</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../support.html">Support</a></li><li><a href="../privacy.html">Privacy</a></li></ul></nav></div></header>
+<main class="content-page"><div class="container article">
+<h1>Common Mistakes in Lua Scripting and How to Avoid Them in Roblox Projects</h1>
+<p class="meta">By Bruno "BaHost" • Lua debugging guide</p>
+<p>Most Lua mistakes are not about intelligence; they are about missing process. Beginners often hit the same pitfalls: nil references, poor file organization, repeated logic, and event connections that never clean up. This article explains the most common mistakes and gives practical corrections you can apply immediately.</p>
+<h2>Mistake 1: Accessing objects before they exist</h2>
+<p>A frequent error is assuming an instance is already available. In dynamic Roblox environments, timing matters. If your script accesses an object before it is created or replicated, you get nil errors. The fix is to use reliable waits, clear initialization order, and defensive checks when object availability can vary.</p>
+<p>Also avoid deeply chained paths without validation. Breaking long lookups into intermediate variables makes debugging easier and error messages clearer.</p>
+<h2>Mistake 2: Mixing local and global scope carelessly</h2>
+<p>Accidental global variables can create hidden side effects across scripts. Use <code>local</code> intentionally for variables and functions unless global scope is truly required. Local scope improves predictability and reduces naming collisions.</p>
+<p>Another scope issue is overusing broad shared tables without ownership rules. Define who can read and write shared state, and expose controlled mutation methods instead of direct unrestricted edits.</p>
+<h2>Mistake 3: Copy-paste programming without abstraction</h2>
+<p>Copying similar blocks across multiple scripts feels fast, but it creates maintenance problems. Bugs fixed in one copy remain in others. Refactor repeated patterns into helper functions or ModuleScripts. Abstraction pays off quickly once the project grows.</p>
+<p>As a rule, if logic appears in three places, it probably deserves a reusable function. This single habit eliminates many inconsistent behavior bugs.</p>
+<h2>Mistake 4: Unclear naming and inconsistent style</h2>
+<p>Names like <code>data1</code>, <code>temp2</code>, and <code>thing</code> make code hard to understand. Unclear naming slows debugging and collaboration. Use descriptive, stable names and one formatting style. Consistent indentation and structure are not cosmetic; they are comprehension tools.</p>
+<p>When naming callbacks, include intent: <code>onVolumeChanged</code> communicates more than <code>changed</code>. Good names reduce the need for excess comments.</p>
+<h2>Mistake 5: Ignoring cleanup for connections and instances</h2>
+<p>If you connect events repeatedly without disconnecting old handlers, you can cause duplicated actions and memory growth. The symptoms often appear later: one button triggers multiple times, or UI becomes sluggish after repeated use. Always track event connections and clean them during destroy or reset flows.</p>
+<p>Similarly, destroy temporary UI elements and clear references to allow garbage collection. Lifecycle discipline is essential for stable long sessions.</p>
+<h2>Mistake 6: Writing everything in one giant script</h2>
+<p>Large monolithic scripts become difficult to modify safely. Split systems into focused modules: input handling, UI rendering, state storage, and action execution. Modular design helps isolate bugs and supports parallel work in teams.</p>
+<p>Even in solo projects, modularization reduces fear when editing because you can reason about one subsystem at a time.</p>
+<h2>Mistake 7: Weak error reporting and debugging habits</h2>
+<p>Many developers print random values without a plan, then get lost in output noise. Use targeted debug messages with context, such as function names and key variable values. Reproduce the issue consistently, then narrow the failing path step by step.</p>
+<p>A debugging checklist helps:</p>
+<ul>
+<li>Confirm code runs in correct context.</li>
+<li>Validate object paths and timing assumptions.</li>
+<li>Check callback parameters for unexpected nil values.</li>
+<li>Test with minimal reproducible state.</li>
+</ul>
+<h2>Mistake 8: Not validating user-controlled values</h2>
+<p>UI inputs and remote payloads should never be trusted blindly. Clamp numeric ranges, verify types, and reject unknown options. Validation protects both code stability and player experience. It also simplifies troubleshooting because invalid states are blocked early.</p>
+<p>Document accepted input ranges in your module comments. This turns validation from “hidden behavior” into a clear contract.</p>
+<h2>Mistake 9: No release checklist</h2>
+<p>Shipping without a checklist invites avoidable regressions. Before release, verify primary gameplay flows, UI interactions, settings persistence, and device compatibility. Keep the checklist short and repeatable. Over time, add new checks for each bug category you encounter.</p>
+<p>This practice converts individual lessons into team knowledge and keeps quality improving across updates.</p>
+<h2>Mistake 10: Skipping code reviews, even informal ones</h2>
+<p>Many solo developers assume code review is only for large teams. In reality, even a lightweight self-review pass catches numerous mistakes. Before shipping, read your script slowly from top to bottom and ask whether every function has one clear responsibility. Small review rituals reduce production bugs dramatically.</p>
+<p>If you collaborate with friends, exchange short reviews focused on logic and maintainability. A second pair of eyes quickly spots unclear names, hidden coupling, and missing validation checks.</p>
+<h2>Mistake 11: Treating tutorials as final architecture</h2>
+<p>Tutorial code is useful for learning concepts, but it is not always production architecture. Beginners often copy tutorial structure unchanged and struggle later when adding features. After learning from examples, refactor into modules and naming conventions that fit your project goals.</p>
+<p>Use tutorials as stepping stones, then build your own maintainable structure deliberately.</p>
+<h2>Conclusion</h2>
+<p>Common Lua scripting mistakes are fixable with better habits: clear scope, reusable modules, robust validation, structured debugging, and lifecycle cleanup. You do not need perfect code immediately. You need repeatable practices that make each project cleaner than the previous one. Mastering these basics will raise your reliability and speed in every Roblox scripting task.</p>
+</div></main>
+<footer class="footer"><div class="container footer-inner"><div><strong>Author:</strong> Bruno "BaHost"</div><div class="footer-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy Policy</a></div></div></footer>
+</body></html>

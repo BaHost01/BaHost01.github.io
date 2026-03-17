@@ -1,83 +1,116 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XMCLib UI Library - Compact Refresh v2.4.0</title>
+  <title>Bahost Dev Academy | Roblox Lua Tutorials, XMCLib Docs, and UI Development</title>
+  <meta name="description" content="Bahost Dev Academy is an educational website for Roblox Lua scripting, UI library architecture, and XMCLib documentation. Learn with practical guides, best practices, and beginner-friendly tutorials.">
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html">XMCLib UI</a>
-      <nav class="main-nav" aria-label="Navegação principal">
-        <ul>
-          <li><a class="active" href="index.html">Home</a></li>
-          <li><a href="features.html">Recursos</a></li>
-          <li><a href="download.html">Instalação</a></li>
-          <li><a href="documentation.html">Documentação</a></li>
-          <li><a href="support.html">FAQ</a></li>
-          <li><a href="contact.html">Contato</a></li>
-        </ul>
-      </nav>
-      <button type="button" class="toggle-btn" data-theme-toggle>☀️ Claro</button>
-    </div>
-  </header>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">Bahost Dev Academy</a>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="docs/index.html">Documentation</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="badge">v2.4.0 • Compact Refresh • Dynamic ZIndex</span>
-          <h1>UILibrary Roblox refeita: compacta, responsiva e pronta para touch.</h1>
-          <p class="subtitle">Este site agora documenta a <strong>XMCLib UI Library</strong> do arquivo <code>UILibrary.luau</code>, com foco nas novidades reais da versão 2.4.0: Toggle Ball, notificações avançadas, layout compacto e correções de memory leak.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="documentation.html">Ler documentação</a>
-            <a class="btn btn-secondary" href="features.html">Ver changelog técnico</a>
-          </div>
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Learn Roblox Scripting the Right Way: Lua Fundamentals, UI Engineering, and XMCLib Tutorials</h1>
+      <p class="lead">Bahost Dev Academy is a content-first learning site focused on educational Roblox development. We publish practical Lua articles, UI architecture walkthroughs, and complete XMCLib documentation to help students and creators build maintainable, user-friendly game interfaces.</p>
+      <p><a class="btn" href="blog/index.html">Start with the Blog</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container grid grid-3">
+      <article class="card">
+        <h2>What this site is</h2>
+        <p>An educational resource for developers who want to understand Roblox Lua scripting deeply, not just copy snippets. Every guide explains decisions, structure, and trade-offs.</p>
+      </article>
+      <article class="card">
+        <h2>Who it is for</h2>
+        <p>Beginners learning Lua, intermediate scripters refining code quality, and UI-focused creators building reusable libraries such as XMCLib components.</p>
+      </article>
+      <article class="card">
+        <h2>Why it exists</h2>
+        <p>Many Roblox resources are fragmented. This site organizes tutorials, documentation, and implementation patterns into one clear curriculum.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>What you will learn</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Lua fundamentals for game scripting</h3>
+          <ul>
+            <li>Variables, tables, loops, functions, and module patterns.</li>
+            <li>How Roblox services and events map to Lua logic.</li>
+            <li>How to write readable scripts that scale as projects grow.</li>
+          </ul>
         </div>
-        <aside class="stat-card">
-          <h2 style="font-size:1.2rem; margin-bottom: 8px;">Highlights desta release</h2>
-          <p class="section-note">Dados extraídos da seção de changelog do script.</p>
-          <div class="kpis">
-            <div><strong>Toggle Ball</strong><span>draggable + touch/mouse</span></div>
-            <div><strong>Compact UI</strong><span>sidebar 120px, topbar 36px</span></div>
-            <div><strong>ZIndex dinâmico</strong><span>tiers por janela</span></div>
-            <div><strong>Leak fix</strong><span>DisconnectAll em destroy</span></div>
-          </div>
-        </aside>
+        <div class="card">
+          <h3>UI development and library design</h3>
+          <ul>
+            <li>Interface hierarchy, state management, and reusable components.</li>
+            <li>Input support for keyboard, mouse, and touch.</li>
+            <li>Building robust APIs for buttons, toggles, sliders, and notifications.</li>
+          </ul>
+        </div>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container grid-3">
-        <article class="card">
-          <p class="mini-title">Novo</p>
-          <h3>Sistema de notificação avançado</h3>
-          <p>Agora aceita aliases de texto (<code>Label</code>, <code>Labels</code>, <code>Text</code>, <code>Message</code>), corners customizáveis e ações com callback.</p>
-        </article>
-        <article class="card">
-          <p class="mini-title">Upgrade</p>
-          <h3>Compatibilidade mobile real</h3>
-          <p>Slider, Dropdown e Drag reconhecem <code>Enum.UserInputType.Touch</code> além de mouse, melhorando usabilidade em telas pequenas.</p>
-        </article>
-        <article class="card">
-          <p class="mini-title">Fix</p>
-          <h3>Conexões globais limpas</h3>
-          <p>As conexões são armazenadas em <code>element._connections</code> e removidas com <code>Disconnect()</code> para reduzir leaks.</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <p>&copy; 2026 XMCLib UI Library.</p>
-      <p>Documentação comunitária para o script de BaHost01.</p>
     </div>
-  </footer>
+  </section>
 
-  <script src="app.js"></script>
+  <section>
+    <div class="container">
+      <h2>Featured learning paths</h2>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Roblox Lua Beginner Guide</h3>
+          <p>Start with core language concepts and practical examples for Roblox Studio projects.</p>
+          <a href="blog/roblox-lua-beginner-guide.html">Read article</a>
+        </article>
+        <article class="card">
+          <h3>How to Build UI Libraries in Roblox</h3>
+          <p>Learn component design, API ergonomics, and maintainable architecture patterns.</p>
+          <a href="blog/build-ui-libraries-roblox.html">Read article</a>
+        </article>
+        <article class="card">
+          <h3>XMCLib Full Tutorial</h3>
+          <p>A practical, start-to-finish guide for setting up and using XMCLib in real projects.</p>
+          <a href="blog/xmclib-full-tutorial.html">Read article</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>Author:</strong> Bruno "BaHost" — Roblox scripting educator and UI library maintainer.
+    </div>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
