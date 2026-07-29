@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://bahost01.github.io/sitemap.xml
