@@ -1,28 +1,95 @@
-# XMCLib UI Library Docs Website
+# ⌁ BAHOST01 — Systems Architect & Low-Level Engineer Portfolio
 
-This repository now hosts a redesigned multi-page documentation website for the **XMCLib UI Library** (`UILibrary.luau`).
+A cybernetic, telemetry-grade developer portfolio built near the bare metal.
 
-## What was updated
+**Stack:** Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS · Framer Motion · Lucide.
 
-- Rewrote all main pages (`index`, `features`, `download`, `documentation`, `support`, `contact`) with consistent branding and navigation.
-- Rebuilt the visual design with a new shared stylesheet (`styles.css`) including responsive layout, cards, code blocks, timeline sections and theme toggle support.
-- Refreshed JavaScript behavior (`app.js`) for light/dark mode persistence and a contact form UX message.
-- Added practical installation snippets and API-focused summaries derived from the official script file:
-  - `Toggle Ball`
-  - compact layout improvements
-  - touch support
-  - notification remade
-  - dynamic ZIndex manager
-  - connection cleanup helpers
+---
 
-## Source referenced
-
-- `https://raw.githubusercontent.com/BaHost01/OpenSource-stuff-/refs/heads/main/MainFrame/Open/UILibrary.luau`
-
-## Local preview
+## Quick Start
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open `http://localhost:4173` in your browser.
+```bash
+npm run build      # static export → ./out
+npm run typecheck  # tsc --noEmit (strict)
+npx serve out      # preview the production export
+```
+
+> Requires Node ≥ 18.18 (Node 20+ recommended for CI).
+
+---
+
+## What's Inside
+
+| Section | Component | Signature Feature |
+|---|---|---|
+| Hero | `components/hero/Hero.tsx` | Cursor-reactive node-net + live **Telemetry HUD** |
+| About | `components/about/Principles.tsx` | Engineering principles, not a bio |
+| Skills | `components/skills/SkillMatrix.tsx` | Filterable matrix — **no bars, no stars** (tier descriptors) |
+| Projects | `components/projects/ProjectCard.tsx` | Execution-flow callout + benchmark tiles |
+| Timeline | `components/timeline/TechTimeline.tsx` | Selectable capability trace |
+| Research | `components/research/Research.tsx` | Research / OSS / protocol / benchmarks |
+| Terminal | `components/terminal/CommandPalette.tsx` | `⌘K` / `` ` `` interactive CLI |
+| Background | `components/background/NodeNet.tsx` | Canvas vector field reacting to pointer |
+
+---
+
+## Commands (Command Palette — `⌘K` / `` ` ``)
+
+`help` · `projects` · `skills` · `fetch-stats` · `timeline` · `research` · `contact` · `matrix` · `scanlines` · `whoami` · `clear`
+
+Try toggling **CRT scanlines** from the header (or run `scanlines` in the terminal).
+
+---
+
+## Customization
+
+All content lives in **`lib/data.ts`** (typed single source of truth):
+
+- `PROFILE` — identity, contact, status.
+- `SKILL_CATEGORIES` — domains, tiers, descriptors.
+- `PROJECTS` — showcase cards (classification, architecture flow, benchmarks).
+- `TIMELINE` / `RESEARCH` — evolution + signals.
+- `TERMINAL_COMMANDS` — palette registry.
+
+Theme tokens (colors, fonts, motion) live in **`tailwind.config.ts`**.
+
+---
+
+## Deploy to GitHub Pages
+
+The included workflow (`.github/workflows/deploy.yml`) builds and publishes `out/`:
+
+1. Push to `main`.
+2. Enable **Settings → Pages → Source: GitHub Actions**.
+3. The workflow builds, exports, and deploys automatically.
+
+For a manual/branch-root publish, run `npm run build` and serve the `out/` directory.
+
+---
+
+## Project Structure
+
+```
+app/          layout, page, globals.css, icon, robots, sitemap
+components/   providers, background, layout, hero, about, skills,
+              projects, timeline, research, contact, terminal, ui
+lib/          data.ts (content model), utils.ts (cn/clamp/random)
+```
+
+---
+
+## Performance & A11y
+
+- Static export → sub-second TTI, zero server.
+- Animations are transform/opacity only → **CLS = 0**.
+- `prefers-reduced-motion` respected; full metadata/OG/robots/sitemap.
+- Lighthouse targets: 100 Performance / Accessibility / SEO / Best-Practices.
+
+---
+
+*The previous static site is preserved under `archive/` for reference.*
